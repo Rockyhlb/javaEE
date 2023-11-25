@@ -55,6 +55,7 @@ public class DeadLock {
                 }
             }
         });
+
         // 最后什么也没打印，因为两个线程都没获取到第二把锁，陷入死锁，两个线程都处于 "BLOCKED"状态
         t1.start();
         t2.start();

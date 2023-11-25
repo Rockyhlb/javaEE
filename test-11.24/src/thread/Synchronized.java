@@ -50,7 +50,6 @@ class Counter {
             }
         }
     }
-
     synchronized public static void increase3() {
         // 修饰静态方法相当于是对 类对象 加锁
     }

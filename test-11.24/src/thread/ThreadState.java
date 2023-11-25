@@ -37,9 +37,7 @@ public class ThreadState {
     }
 
     public static void main1(String[] args) throws InterruptedException {
-        Thread t = new Thread(() -> {
-
-        });
+        Thread t = new Thread(() -> {});
         // 此时线程还未开始，因此还是 NEW态
         System.out.println("before start: " + t.getState());
         t.start();

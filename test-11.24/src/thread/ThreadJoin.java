@@ -7,7 +7,7 @@ package thread;
  * @Description: 线程等待
  * @Author: code_hlb
  */
-public class ThreadWait {
+public class ThreadJoin {
     public static void main(String[] args) throws InterruptedException {
         long begin = System.currentTimeMillis();
         // 线程休眠时间不一定就是准确的1000ms,因为sleep本身存在一定的精度误差，

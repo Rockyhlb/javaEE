@@ -51,5 +51,6 @@ public class ThreadSecure {
         // 系统执行count++程序经历了三步，分别是 从寄存器中load,add,save到内存中
         // 预期输出结果应该是2w,输出结果却不确定，这是由于线程之间的调度顺序是 随机 的，因此就会导致两个线程的 load、add、save 出现穿插
         System.out.println("count: " + count);
+
     }
 }
