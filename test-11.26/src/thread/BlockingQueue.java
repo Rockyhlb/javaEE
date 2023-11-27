@@ -24,9 +24,8 @@ public class BlockingQueue {
         // BlockingQueue 接口 提供两种实现方式，分别是LinkedBlockingDeque
         java.util.concurrent.BlockingQueue<String> blockingQueue = new ArrayBlockingQueue<>(10);
         java.util.concurrent.BlockingQueue<Integer> linkedBlockingDeque = new LinkedBlockingQueue<>();
-
         // BlockingDeque 也提供了offer 和 poll方法，但是并不具备 阻塞 的特性
-        // put() 阻塞式的入队列      take() 阻塞式的出队列   并没有阻塞式的获取队首元素
+        // put() 阻塞式的入队列      take() 阻塞式的出队列    并没有阻塞式的获取队首元素
         linkedBlockingDeque.put(1);
         linkedBlockingDeque.put(2);
         linkedBlockingDeque.put(3);
