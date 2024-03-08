@@ -37,4 +37,10 @@
             <version>2.15.0</version>
         </dependency>
     </dependencies>
+
+    <!-- 打包成war包部署到云服务器上 -->
+    <packaging>war</packaging>
+    <build>
+        <finalName>blog_system</finalName>
+    </build>
 </project>
