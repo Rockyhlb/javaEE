@@ -24,7 +24,7 @@ import java.util.List;
  * @Author: code_hlb
  */
 @WebServlet("/message")
-public class message_servlet extends HttpServlet {
+public class Message_servlet extends HttpServlet {
     // 此处我们约定前后端数据交互的格式为json:{{"from":"zhangsan","to":lisi,"message":"我喜欢你!"}}
     private ObjectMapper objectMapper = new ObjectMapper();
     // 引入数据库存储数据，就不需要本地链表存储数据了
@@ -35,7 +35,9 @@ public class message_servlet extends HttpServlet {
         // 1、创建数据源
         ((MysqlDataSource)dataSource).setURL("jdbc:mysql://127.0.0.1:3306/message_wall?characterEncoding=utf8&useSSL=false");
         ((MysqlDataSource)dataSource).setUser("root");
-        ((MysqlDataSource)dataSource).setPassword("000000");
+//        ((MysqlDataSource)dataSource).setPassword("000000");
+        // 部署到服务器
+        ((MysqlDataSource)dataSource).setPassword("");
     }
     // 获取页面和页面记载时都会给服务器端发起Get请求
     @Override

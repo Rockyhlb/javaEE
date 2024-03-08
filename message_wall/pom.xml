@@ -37,4 +37,9 @@
             <version>8.0.32</version>
         </dependency>
     </dependencies>
+
+    <packaging>war</packaging>
+    <build>
+        <finalName>message_wall</finalName>
+    </build>
 </project>
