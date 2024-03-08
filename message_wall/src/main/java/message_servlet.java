@@ -24,7 +24,7 @@ import java.util.List;
  * @Author: code_hlb
  */
 @WebServlet("/message")
-public class Message_servlet extends HttpServlet {
+public class message_servlet extends HttpServlet {
     // 此处我们约定前后端数据交互的格式为json:{{"from":"zhangsan","to":lisi,"message":"我喜欢你!"}}
     private ObjectMapper objectMapper = new ObjectMapper();
     // 引入数据库存储数据，就不需要本地链表存储数据了
@@ -80,9 +80,9 @@ public class Message_servlet extends HttpServlet {
         // 3、构造sql
         String sql = "insert into message values (?,?,?)";
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
-        preparedStatement.setString(1,message.from);
-        preparedStatement.setString(2,message.to);
-        preparedStatement.setString(3,message.message);
+        preparedStatement.setString(1,message.getFrom());
+        preparedStatement.setString(2,message.getTo());
+        preparedStatement.setString(3,message.getMessage());
         // 4、执行sql
         preparedStatement.executeUpdate();
         // 5、回收资源
@@ -101,9 +101,9 @@ public class Message_servlet extends HttpServlet {
         List<Message> messageList = new LinkedList<>();
         while (resultSet.next()) {
             Message message = new Message();
-            message.from = resultSet.getString("from");
-            message.to = resultSet.getString("to");
-            message.message = resultSet.getString("message");
+            message.setFrom(resultSet.getString("from"));
+            message.setTo(resultSet.getString("to"));
+            message.setMessage(resultSet.getString("message"));
             messageList.add(message);
         }
         // 5、回收资源
@@ -112,19 +112,5 @@ public class Message_servlet extends HttpServlet {
         connection.close();
         // 6、返回结果
         return messageList;
-    }
-}
-
-class Message {
-    public String from;
-    public String to;
-    public String message;
-    @Override
-    public String toString() {
-        return "Message{" +
-                "from='" + from + '\'' +
-                ", to='" + to + '\'' +
-                ", message='" + message + '\'' +
-                '}';
     }
 }
