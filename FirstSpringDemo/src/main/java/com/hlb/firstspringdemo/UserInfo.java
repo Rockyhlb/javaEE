@@ -8,15 +8,24 @@ package com.hlb.firstspringdemo;
  * @Author: code_hlb
  */
 public class UserInfo {
-    private Integer id;
+    private int id;
     private String name;
     private Integer age;
 
-    public Integer getId() {
+    public UserInfo() {
+    }
+
+    public UserInfo(int id, String name, Integer age) {
+        this.id = id;
+        this.name = name;
+        this.age = age;
+    }
+
+    public int getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 

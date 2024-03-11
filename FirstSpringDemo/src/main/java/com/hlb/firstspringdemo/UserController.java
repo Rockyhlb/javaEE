@@ -1,10 +1,13 @@
 package com.hlb.firstspringdemo;
 
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.sun.xml.internal.ws.developer.StreamingAttachment;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.jws.soap.SOAPBinding;
+import java.io.File;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
@@ -16,7 +19,7 @@ import java.util.List;
  * @Author: code_hlb
  */
 
-@RequestMapping("/user/page1")  // @RequestMapping 注解作用在类上表示类路径
+@RequestMapping("/user/page1")  // @RequestMapping：路由绑定，建立连接，作用在类上表示类路径
 // 当一个类有多个注解时，这些注解没有先后顺序
 @RestController
 public class UserController {
@@ -80,5 +83,26 @@ public class UserController {
         }else {
             return "list为空！";
         }
+    }
+
+    // 传递Json数据
+    @RequestMapping("/getJson")
+    public String getJson(@RequestBody UserInfo userInfo) {
+        // 传统方式
+        return userInfo.toString();
+    }
+
+    // 获取 url 中的参数
+    @RequestMapping("/getUrlParam/{name}/{age}")
+    public String getUrlParam(@PathVariable(value = "name",required = false) String userName,@PathVariable(value = "age",required = false) Integer age) {
+        return "userName: " + userName + ", age: " + age;
+    }
+
+    // 传输文件
+    @RequestMapping("/getFile")
+    public String getFile(@RequestPart MultipartFile file) throws IOException {
+        String fileName = file.getOriginalFilename();
+        file.transferTo(new File("D:/temp/java/" + fileName));
+        return "获取到文件：" + fileName;
     }
 }
