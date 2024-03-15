@@ -2,6 +2,8 @@ package com.hlb.service;
 
 import com.hlb.dao.BookDao;
 import com.hlb.model.BookInfo;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
@@ -12,12 +14,15 @@ import java.util.List;
  * @Description: 业务逻辑层：处理具体的业务逻辑
  * @Author: code_hlb
  */
+@Component
 public class BookService {
     /**
      * 根据数据层返回的结果，对数据进行处理
      */
+    @Autowired
+    private BookDao bookDao;
     public List<BookInfo> bookInfos() {
-        BookDao bookDao = new BookDao();
+//        BookDao bookDao = new BookDao();
         List<BookInfo> bookInfoList = bookDao.mockBookData();
         // 根据状态码转换状态
         for (BookInfo book: bookInfoList) {
