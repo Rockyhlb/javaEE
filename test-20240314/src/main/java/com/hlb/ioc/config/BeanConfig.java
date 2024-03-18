@@ -3,6 +3,7 @@ package com.hlb.ioc.config;
 import com.hlb.ioc.model.UserInfo;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 
 /**
  * @BelongsProject: test-20240314
@@ -23,7 +24,9 @@ public class BeanConfig {
         return userInfo;
     }
 
-    @Bean("user3")
+    // 当存在多个相同的 Bean 注入时，默认实现 @Primary 修饰的
+//    @Primary
+    @Bean
     public UserInfo userInfo2() {
         UserInfo userInfo = new UserInfo();
         userInfo.setId(10);

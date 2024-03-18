@@ -2,6 +2,7 @@ package com.hlb.ioc;
 
 import com.hlb.ioc.component.UserComponent;
 import com.hlb.ioc.controller.UserController;
+import com.hlb.ioc.controller.UserController2;
 import com.hlb.ioc.model.UserInfo;
 import com.hlb.ioc.service.UserService;
 import org.springframework.boot.SpringApplication;
@@ -27,31 +28,31 @@ public class Test20240314Application {
         // @Configuration：用于管理配置信息
         // 五大注解之间的关系：从源码可以看出 其它四个注解都是@Component的衍生类
         // 1、根据类型获取Bean（不适合一个类型多个Bean的情况）
-        UserController userController = context.getBean(UserController.class);
-        userController.welcome();
-        // 2、由于Spring 给我们创建对象时会给每个对象起一个名字，
-        // 命名规则：当我们没有命名时，Spring会按照小驼峰的形式给我们命名，如果类名两位为大写，则Bean的名称为原始类名
-        // 根据对象名称获取Bean (推荐)
-        UserComponent userComponent1 = (UserComponent) context.getBean("userComponent");
-        userComponent1.welcome();
-        // 3、根据类型和名称获取Bean (推荐)
-        UserComponent userComponent2 = context.getBean("userComponent",UserComponent.class);
-        userComponent2.welcome();
-
-        // 由于@Service("userService1")，因此报 “NoSuchBeanDefinitionException”异常
-        // UserService userService1 = (UserService) context.getBean("userService");
-        UserService userService = (UserService) context.getBean("userService1");
-        userService.welcome();
-
-        System.out.println("===============================");
-
-        UserInfo userInfo1 = context.getBean("user1",UserInfo.class);
-        System.out.println(userInfo1);
-        UserInfo userInfo2 = context.getBean("user2",UserInfo.class);
-        System.out.println(userInfo2);
-
-        UserInfo userInfo3 = context.getBean("user3",UserInfo.class);
-        System.out.println(userInfo3);
+//        UserController userController = context.getBean(UserController.class);
+//        userController.welcome();
+//        // 2、由于Spring 给我们创建对象时会给每个对象起一个名字，
+//        // 命名规则：当我们没有命名时，Spring会按照小驼峰的形式给我们命名，如果类名两位为大写，则Bean的名称为原始类名
+//        // 根据对象名称获取Bean (推荐)
+//        UserComponent userComponent1 = (UserComponent) context.getBean("userComponent");
+//        userComponent1.welcome();
+//        // 3、根据类型和名称获取Bean (推荐)
+//        UserComponent userComponent2 = context.getBean("userComponent",UserComponent.class);
+//        userComponent2.welcome();
+//
+//        // 由于@Service("userService1")，因此报 “NoSuchBeanDefinitionException”异常
+//        // UserService userService1 = (UserService) context.getBean("userService");
+//        UserService userService = (UserService) context.getBean("userService1");
+//        userService.welcome();
+//
+//        System.out.println("===============================");
+//
+//        UserInfo userInfo1 = context.getBean("user1",UserInfo.class);
+//        System.out.println(userInfo1);
+//        UserInfo userInfo2 = context.getBean("user2",UserInfo.class);
+//        System.out.println(userInfo2);
+//
+//        UserInfo userInfo3 = context.getBean("user3",UserInfo.class);
+//        System.out.println(userInfo3);
 
         // 获取Bean的功能是BeanFactory提供的(源码)，那BeanFactory 和 ApplicationContext 有什么区别呢？
         // 可以从两个方面进行回答：
@@ -64,5 +65,9 @@ public class Test20240314Application {
 
         // Spring 默认扫描路径是 启动类当前所在路径
         // 可以通过注解 @ComponentScan("com.hlb.ioc") 指定扫描路径
+
+//        UserController bean = context.getBean(UserController.class);
+        UserController2 bean = context.getBean(UserController2.class);
+        bean.welcome();
     }
 }

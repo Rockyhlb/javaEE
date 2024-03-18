@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Configuration;
  * @Description: 类注解：@Configuration
  * @Author: code_hlb
  */
-@Configuration()
+@Configuration
 public class UserConfig {
     public void welcome() {
         System.out.println("hello,UserConfig!");

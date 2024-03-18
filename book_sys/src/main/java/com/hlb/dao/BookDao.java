@@ -1,7 +1,7 @@
 package com.hlb.dao;
 
 import com.hlb.model.BookInfo;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -15,7 +15,7 @@ import java.util.Random;
  * @Description: 数据访问层：也称为持久层，负责数据的访问操作，包括数据的增、删、查、改
  * @Author: code_hlb
  */
-@Component
+@Repository
 public class BookDao {
     public List<BookInfo> mockBookData() {
         // 生成暂时的测试数据，后续优化成访问访问数据库

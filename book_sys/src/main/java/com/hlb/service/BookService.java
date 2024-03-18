@@ -3,7 +3,7 @@ package com.hlb.service;
 import com.hlb.dao.BookDao;
 import com.hlb.model.BookInfo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -14,7 +14,7 @@ import java.util.List;
  * @Description: 业务逻辑层：处理具体的业务逻辑
  * @Author: code_hlb
  */
-@Component
+@Service
 public class BookService {
     /**
      * 根据数据层返回的结果，对数据进行处理
