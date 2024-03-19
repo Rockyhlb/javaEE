@@ -1,0 +1,20 @@
+# 通过配置文件生成验证码
+kaptcha:
+  border:
+    enbaled: true
+  text-producer:
+    character:
+      length: 5
+    font:
+      color: black
+  image:
+    height: 50
+    width: 150
+  items:
+    admin:
+      # 生成器访问的路径
+      path: /admin/captcha
+      # 生成的验证码存储在session中
+      session:
+        key: KAPTCHA_SESSION_KEY
+        date: KAPTCHA_SESSION_DATE
