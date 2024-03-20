@@ -1,0 +1,64 @@
+# 配置文件的出现是为了解决“硬编码”问题
+# Spring的配置文件主要分为三类：application.properties，application.yml，application.yaml 其中后两者无明显区别
+
+# yaml格式是树形的配置格式，基本格式是：key: value, 冒号后面的空格一定不能省略,对于格式的要求非常高
+# 优点：可读性高，支持更多的数据类型，⽀持更多的编程语⾔
+# 缺点：不适合写复杂的配置文件
+spring:
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/testdb?characterEncoding=utf8&
+    username: root
+    password: 0000
+#自定义配置项  -- 字符串
+string:
+  value: nihao
+#  默认不用加上引号，输出为 “Hello \n Spring Boot.”
+  str1: Hello \n Spring Boot.
+#  单引号会转义字符，因此输出为 “Hello \n Spring Boot.”
+  str2: 'Hello \n Spring Boot.'
+#  双引号不会发生转义，因此 \n会被当成换行符进行处理
+  str3: "Hello \n Spring Boot."
+#  空字符串，直接后面什么都不加，或者加上 ‘’ or “”
+empty:
+  value: ""
+#  Null
+null.value: ~
+
+# 对象
+student:
+  id: 111
+  name: root
+  age: 18
+
+#  配置集合
+dbtypes:
+  name:
+    - mysql
+    - sqlserver
+    - db2
+#  配置 Map
+  map:
+    k1: kk1
+    k2: kk2
+    k3: kk3
+
+# 日志配置
+logging:
+  level:
+    root: info   # root表示根目录，整个项目的日志级别
+    com:
+      hlb:
+        conf:
+          controller: debug  # 定义 com.hlb.conf.controller 路径的日志级别
+  file:
+    path: logger/    #配置日志保存路径
+    name: logger1/conf.log  #配置日志名称，当 path 和 name 同时配置时，path失效
+#    日志文件的分割/拆分
+  logback:
+    rollingpolicy:
+      file-name-pattern: ${LOG_FILE}.%d{yyyy-MM-dd}.%i  # 日志分割后的文件名格式
+      max-file-size: 2KB  # 日志分割条件，通常为 200Mb、500Mb等
+#      日志格式的设置
+#  pattern:
+#    console: '%d{MM-dd HH:mm:ss.SSS} %c %M %L [%thread] %m%n'    # 控制台日志格式
+#    file: '%d{yyyy-MM-dd HH:mm:ss.SSS} %c %M %L [%thread] %m%n'  # 日志文件的格式
