@@ -1,0 +1,35 @@
+show databases;
+
+-- 创建数据库
+drop database if exists mybatis_test;
+create database mybatis_test default character set utf8mb4;
+-- 使⽤数据库
+use mybatis_test;
+-- 创建表[⽤⼾表]
+drop table if exists user_info;
+# 建表规范：
+-- 1、字段全部小写，单词之间使用下划线隔开
+-- 2、建表需要具备三个字段，id(自增)、create_time,update_time
+create table `user_info` (
+    `id` INT ( 11 ) not null auto_increment,
+    `username` varchar ( 127 ) not null,
+    `password` varchar ( 127 ) not null,
+    `age` tinyint ( 4 ) not null,
+    `gender` tinyint ( 4 ) default '0' comment '1-男 2-⼥ 0-默认',
+    `phone` varchar ( 15 ) default null,
+    `delete_flag` tinyint ( 4 ) default 0 comment '0-正常, 1-删除',
+    `create_time` datetime default now(),
+    `update_time` datetime default now(),
+     primary key ( `id` )
+) engine = INNODB default charset = utf8mb4;
+-- 添加⽤⼾信息
+insert into user_info ( username, `password`, age, gender, phone )
+values ( 'admin', 'admin', 18, 1, '1828377431142' );
+insert into user_info ( username, `password`, age, gender, phone )
+values ( 'zhangsan', 'zhangsan', 18, 1, '1825677231143' );
+insert into user_info ( username, `password`, age, gender, phone )
+values ( 'lisi', 'lisi', 18, 1, '1828971231144' );
+insert into user_info ( username, `password`, age, gender, phone )
+values ( 'wangwu', 'wangwu', 18, 1, '1828967231145' );
+
+select * from user_info;
