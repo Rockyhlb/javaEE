@@ -34,6 +34,26 @@ class UserInfoMapperTest {
     }
 
     @Test
+    void queryAllUser1() {
+        log.info(userInfoMapper.queryAllUser1().toString());
+    }
+
+    @Test
+    void queryAllUser2() {
+        log.info(userInfoMapper.queryAllUser2().toString());
+    }
+
+    @Test
+    void queryAllUser3() {
+        log.info(userInfoMapper.queryAllUser3().toString());
+    }
+
+    @Test
+    void queryAllUser4() {
+        log.info(userInfoMapper.queryAllUser4().toString());
+    }
+
+    @Test
     void queryUserById() {
         UserInfo userInfo = userInfoMapper.queryUserById(2);
         log.info(userInfo.toString());
@@ -80,12 +100,18 @@ class UserInfoMapperTest {
 
     @Test
     void updateByUserId() {
+        Integer count = userInfoMapper.updateByUserId("234123",new Date(),2);
+        log.info("更新：" + count + " 行..");
+    }
+
+    @Test
+    void updateByUserOb() {
         UserInfo userInfo = new UserInfo();
         userInfo.setId(5);
         userInfo.setUsername("tianqi");
         userInfo.setPassword("654321");
         userInfo.setUpdateTime(new Date());
-        Integer count = userInfoMapper.updateByUserId(userInfo);
+        Integer count = userInfoMapper.updateByUserOb(userInfo);
         log.info("更新：" + count + " row，用户ID: " + userInfo.getId());
     }
 }
