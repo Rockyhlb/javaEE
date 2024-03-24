@@ -42,6 +42,17 @@
             <scope>runtime</scope>
         </dependency>
 
+        <!-- 常⻅的数据库连接池：C3P0、DBCP、Druid、Hikari
+        目前比较流⾏的是 Hikari, Druid
+        1、Hikari: SpringBoot默认使用的数据库连接池
+        2、Druid：阿⾥巴巴开源的数据库连接池项目，功能强⼤，性能优秀，是Java最好的数据库连接池之一
+        -->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>druid-spring-boot-starter</artifactId>
+            <version>1.1.17</version>
+        </dependency>
+
     </dependencies>
 
     <build>

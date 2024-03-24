@@ -25,4 +25,18 @@ public class UserController {
     public List<UserInfo> queryAllUser() {
         return userService.queryAllUser();
     }
+
+    /*
+    * 模拟Sql注入，完成登陆验证
+    * 发送请求：userName=lisi&passWord=' or 1='1
+    * 响应为： true
+    * */
+    @RequestMapping("/login")
+    public boolean login(String userName,String passWord) {
+        UserInfo userInfo = userService.queryUserByNameAndPassword(userName,passWord);
+        if (userInfo != null) {
+            return true;
+        }
+        return false;
+    }
 }

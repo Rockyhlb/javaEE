@@ -21,4 +21,12 @@ public class UserService {
     public List<UserInfo> queryAllUser() {
         return userInfoMapper.queryAllUser();
     }
+
+    public UserInfo queryUserByNameAndPassword(String userName, String passWord) {
+        List<UserInfo> list = userInfoMapper.queryUserByNameAndPassword(userName,passWord);
+        if (list != null && list.size() >= 0) {
+            return list.get(0);
+        }
+        return null;
+    }
 }

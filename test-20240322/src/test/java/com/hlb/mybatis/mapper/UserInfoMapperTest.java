@@ -70,6 +70,16 @@ class UserInfoMapperTest {
     }
 
     @Test
+    void queryUserByParam2() {
+        log.info(userInfoMapper.queryUserByParam2(3).toString());
+    }
+
+    @Test
+    void queryUserByStr() {
+        log.info(userInfoMapper.queryUserByStr("zhangsan").toString());
+    }
+
+    @Test
     void insert() {
         UserInfo userInfo = new UserInfo();
         userInfo.setUsername("zhaoliu");
@@ -113,5 +123,21 @@ class UserInfoMapperTest {
         userInfo.setUpdateTime(new Date());
         Integer count = userInfoMapper.updateByUserOb(userInfo);
         log.info("更新：" + count + " row，用户ID: " + userInfo.getId());
+    }
+
+    @Test
+    void queryUserByUserName() {
+        // 模拟Sql注入攻击,username= ' or 1='1, 最终查询出表中所有记录
+        log.info(userInfoMapper.queryUserByUserName("' or 1='1").toString());
+    }
+
+    @Test
+    void queryUserOrder() {
+        log.info(userInfoMapper.queryUserOrder("desc").toString());
+    }
+
+    @Test
+    void queryUserByLike() {
+        log.info(userInfoMapper.queryUserByLike("zhao").toString());
     }
 }
