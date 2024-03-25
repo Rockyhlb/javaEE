@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.Arrays;
 import java.util.Date;
 
 @SpringBootTest
@@ -18,7 +19,7 @@ class UserInfoXmlMapperTest {
 
     @BeforeEach
     void setUp() {
-        log.info("Start.......................................");
+        log.info("Starting.......................................");
     }
 
     @AfterEach
@@ -26,53 +27,74 @@ class UserInfoXmlMapperTest {
         log.info("Ending.......................................");
     }
 
+    // --> 查询
     @Test
-    void queryAllUser() {
-        log.info(userInfoXmlMapper.queryAllUser().toString());
+    void queryUserList() {
+        log.info(userInfoXmlMapper.queryUserList().toString());
     }
 
     @Test
-    void queryAllUser1() {
-        log.info(userInfoXmlMapper.queryAllUser1().toString());
+    void queryUserList1() {
+        log.info(userInfoXmlMapper.queryUserList1().toString());
     }
 
     @Test
-    void queryUserByParam() {
-        log.info(userInfoXmlMapper.queryUserByParam(5,0).toString());
+    void queryUserByWhere() {
+        log.info(userInfoXmlMapper.queryUserByWhere(null,null).toString());
     }
 
+    // --> 添加
     @Test
-    void insertByOb() {
+    void insert() {
         UserInfo userInfo = new UserInfo();
-        userInfo.setUsername("zhaoliu");
+        userInfo.setUsername("lisi");
+        userInfo.setAge(15);
         userInfo.setPassword("123456");
-        userInfo.setAge(20);
-        userInfo.setGender(0);
-        userInfo.setPhone("1988888888");
-        Integer count = userInfoXmlMapper.insertByOb(userInfo);
-        log.info("受影响的行数：" + count + ", 用户Id: " + userInfo.getId());
+        userInfo.setGender(1);
+        Integer count = userInfoXmlMapper.insert(userInfo);
+        log.info("添加：" + count + " row，用户ID: " + userInfo.getId());
     }
 
     @Test
-    void deleteByUserId() {
-        Integer count = userInfoXmlMapper.deleteByUserId(7);
-        log.info("删除：" + count + " row..");
-    }
-
-    @Test
-    void updateByUserId() {
-        Integer count = userInfoXmlMapper.updateByUserId("234123",new Date(),2);
-        log.info("更新：" + count + " 行..");
-    }
-
-    @Test
-    void updateByUserOb() {
+    void insert2() {
         UserInfo userInfo = new UserInfo();
-        userInfo.setId(5);
+        userInfo.setUsername("lisi");
+//        userInfo.setAge(15);
+        userInfo.setPassword("123456");
+//        userInfo.setGender(1);
+//        userInfo.setPhone();
+        Integer result = userInfoXmlMapper.insert2(userInfo);
+        log.info("result:"+result+",id:"+userInfo.getId());
+    }
+
+    // --> 删除
+    @Test
+    void delete() {
+        userInfoXmlMapper.delete(9);
+    }
+
+    @Test
+    void batchDelete() {
+        Integer count = userInfoXmlMapper.batchDelete(Arrays.asList(8,9,10,11));
+        log.info("删除：" + count + " rows...");
+    }
+
+    // --> 更新
+    @Test
+    void update() {
+        userInfoXmlMapper.update("admin",2,new Date());
+    }
+
+    @Test
+    void update2() {
+        UserInfo userInfo = new UserInfo();
         userInfo.setUsername("tianqi");
-        userInfo.setPassword("654321");
+//        userInfo.setAge(15);
+        userInfo.setPassword("123456");
+        // 根据用户ID修改消息
+        userInfo.setId(5);
         userInfo.setUpdateTime(new Date());
-        Integer count = userInfoXmlMapper.updateByUserOb(userInfo);
+        Integer count = userInfoXmlMapper.update1(userInfo);
         log.info("更新：" + count + " row，用户ID: " + userInfo.getId());
     }
 }

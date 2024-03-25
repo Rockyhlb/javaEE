@@ -20,19 +20,21 @@ public interface UserInfoXmlMapper {
     // 1、引入Mybatis依赖，配置数据库连接
     // 2、配置 mapper 的路径
     // 3、声明 Mapper接口 和 xml实现
-    List<UserInfo> queryAllUser();
-    List<UserInfo> queryAllUser1();
-    // 参数绑定：
-    UserInfo queryUserByParam(@Param("id") Integer userId,Integer deleteFlag);
+    List<UserInfo> queryUserList();
 
-    // --> 增
-    Integer insertByOb(@Param("user") UserInfo userInfo);
+    List<UserInfo> queryUserList1();
 
-    // --> 删
-    Integer deleteByUserId(@Param("userId") Integer id);
+    List<UserInfo> queryUserByWhere(String userName, Integer age);
 
-    // --> 改
-    Integer updateByUserId(String password, Date updateTime, Integer id);
-    Integer updateByUserOb(@Param("user") UserInfo userInfo);
+    Integer insert(UserInfo userInfo);
 
+    Integer insert2(UserInfo userInfo);
+
+    Integer delete(Integer id);
+
+    Integer batchDelete(List<Integer> list);
+
+    Integer update(String password,Integer id,Date updateTime);
+
+    Integer update1(UserInfo userInfo);
 }

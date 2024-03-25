@@ -4,50 +4,150 @@
 <mapper namespace="com.hlb.mybatis.mapper.UserInfoXmlMapper">
     <resultMap id="BaseResult" type="com.hlb.mybatis.model.UserInfo">
         <!-- 主键 -->
-        <id property="id" column="id"></id>
+        <id property="id" column="id"/>
         <!-- 普通列 -->
-        <result column="username" property="username"></result>
-        <result column="password" property="password"></result>
-        <result column="age" property="age"></result>
-        <result column="gender" property="gender"></result>
-        <result column="phone" property="phone"></result>
-        <result column="delete_flag" property="deleteFlag"></result>
-        <result column="create_time" property="createTime"></result>
-        <result column="update_time" property="updateTime"></result>
+        <result column="username" property="username"/>
+        <result column="password" property="password"/>
+        <result column="age" property="age"/>
+        <result column="gender" property="gender"/>
+        <result column="phone" property="phone"/>
+        <result column="delete_flag" property="deleteFlag"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
     </resultMap>
 
-    <select id="queryAllUser" resultMap="BaseResult">
+    <!-- 后续通过include标签 复用重复代码, 减少代码冗余 -->
+    <sql id="cols">
+        id, username,password,gender,age,phone,
+    </sql>
+
+    <!--查询-->
+    <select id="queryUserList" resultMap="BaseResult">
+        select
+        <include refid="cols"/>
+        delete_flag as deleteFlag,
+        create_time as createTime,
+        update_time as updateTime
+        from user_info
+    </select>
+    <select id="queryUserList1" resultMap="BaseResult">
+        select
+        <include refid="cols"/>
+        delete_flag,
+        create_time,
+        update_time
+        from user_info
+    </select>
+
+    <!-- 动态Sql -->
+    <select id="queryUserByWhere" resultMap="BaseResult">
         select * from user_info
+        <!-- where 标签：去除代码块最前面的'and',当查询条件都为空时，去除where. -->
+        <where>
+            <!-- 通过 if 判断查询条件是否为空. -->
+            <if test="userName!=null">
+                username=#{userName}
+            </if>
+            <if test="age!=null">
+                and age=#{age}
+            </if>
+        </where>
     </select>
 
-    <select id="queryAllUser1" resultMap="BaseResult">
-        select id,username,password,age,gender,phone,
-               delete_flag, create_time,update_time
-        from user_info;
-    </select>
-
-    <select id="queryUserByParam" resultMap="BaseResult">
-        select * from user_info where id = #{id} and delete_flag = #{deleteFlag}
-    </select>
-
-    <!-- 设置useGeneratedKeys 和keyProperty属性,返回自增ID-->
-    <insert id="insertByOb" useGeneratedKeys="true" keyProperty="id">
-        insert into user_info(username,password,age,gender,phone)
-        values (#{user.username},#{user.password},#{user.age},
-                #{user.gender},#{user.phone})
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        insert into
+            user_info
+            (username, password,age,gender, phone)
+        values
+            (#{username},#{password},#{age},#{gender},#{phone})
     </insert>
 
-    <delete id="deleteByUserId">
-        delete from user_info where id = #{userId}
+    <insert id="insert2" useGeneratedKeys="true" keyProperty="id">
+        insert into
+        user_info
+        <!-- 通过 trim标签 和 if标签 拼接动态SQL
+        prefixOverrides：去除代码块最前面的指定字符串
+        suffixOverrides：去除代码块最后面的指定字符串
+        prefix：代码块最前面添加指定字符串
+        suffix：代码块最后面添加指定字符串 -->
+        <trim prefixOverrides="," suffixOverrides="," prefix="(" suffix=")">
+            <if test="username!=null">
+                username,
+            </if>
+            <if test="password!=null">
+                password,
+            </if>
+            <if test="age!=null">
+                age,
+            </if>
+            <if test="gender!=null">
+                gender,
+            </if>
+            <if test="phone!=null">
+                phone,
+            </if>
+        </trim>
+        values
+        <trim prefixOverrides="," prefix="(" suffix=")" suffixOverrides=",">
+            <if test="username!=null">
+                #{username},
+            </if>
+            <if test="password!=null">
+                #{password},
+            </if>
+            <if test="age!=null">
+                #{age},
+            </if>
+            <if test="gender!=null">
+                #{gender},
+            </if>
+            <if test="phone!=null">
+                #{phone},
+            </if>
+        </trim>
+    </insert>
+
+    <delete id="delete">
+        delete from user_info where id= #{id}
     </delete>
 
-    <update id="updateByUserId">
-        update user_info set password=#{password},update_time=#{updateTime}
-                         where id=#{id}
+    <!-- delete from user_info where id in (8,9,10,11) -->
+    <delete id="batchDelete">
+        delete from user_info where id in
+        <!-- foreach 循环遍历，实现批量删除
+         collection: 绑定参数中的集合
+         item: 遍历时的每一个对象
+         separator: 每次遍历之间的分隔符
+         open: 语句块开头的字符
+         close: 语句块结束的字符 -->
+        <foreach collection="list" item="id" separator="," open="(" close=")" >
+            #{id}
+        </foreach>
+    </delete>
+
+    <update id="update">
+        update user_info
+        set password = #{password},update_time = #{updateTime}
+        where id = #{id}
     </update>
 
-    <update id="updateByUserOb">
-        update user_info set username=#{user.username},password=#{user.password},
-                             update_time=#{user.updateTime} where id=#{user.id}
+    <update id="update1">
+        update user_info
+        <!-- Set标签默认会去除掉整个代码块最后的逗号',' -->
+        <set>
+            <if test="username!=null">
+                username = #{username},
+            </if>
+            <if test="password!=null">
+                password = #{password},
+            </if>
+            <if test="age!=null">
+                age = #{age},
+            </if>
+            <if test="updateTime!=null">
+                update_time = #{updateTime},
+            </if>
+        </set>
+        where id = #{id}
     </update>
 </mapper>
