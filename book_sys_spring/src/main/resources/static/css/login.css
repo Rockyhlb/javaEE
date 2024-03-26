@@ -1,0 +1,199 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    /*width = border + padding + 内容的宽度
+    box-sizing :border-box ：（怪异盒子模型）可根据实际项目需要
+    自行设置，padding和border的值就不会再影响元素的宽高，
+    相当于把padding和border的值都算在content*/
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    display: flex;
+    justify-content: center; /*在容器中央对齐弹性项目*/
+    align-items: center; /*将弹性 <div> 元素的所有项目的居中对齐*/
+    margin-top: 200px;
+    background-color: #28292d;
+    min-height: 100px;
+    /*设置最低高度，例如当内容只有50px时，此时就会保持一个
+    最低高度，不会使盒子塌陷*/
+}
+
+.box {
+    background: #8f8181;
+    width: 380px;
+    height: 400px;
+    position: relative;  /*方便before和after的定位*/
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+/*before可以把需插入的内容插入到元素的其他内容之前，
+并且默认内联显示。::before需要使用content属性来指定内容的值。*/
+.box:before {
+    content: '';
+    width: 380px;
+    height: 400px;
+    position: absolute; /*固定定位，便于后续旋转圆心的定位*/
+    top: -50%;
+    left: -50%;
+    transform-origin: bottom right;
+    /*transform-origin: x-axis y-axis z-axis;
+    以当前原心进行定位*/
+    background: linear-gradient(to top, transparent, #45f3ff);
+    /*渐变*/
+    -webkit-animation: bt_translate 7s linear infinite;
+    /*linear:整个动画头和尾的速度相同
+    infinite:无限循环*/
+}
+
+@-webkit-keyframes bt_translate {
+    0% {
+        transform: rotate(0deg)
+    }
+    100% {
+        transform: rotate(360deg)
+    }
+}
+
+.box:after {
+    content: '';
+    width: 380px;
+    height: 400px;
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    transform-origin: bottom right;
+    background: linear-gradient(to top, transparent, pink);
+    -webkit-animation: bt_translate 7s linear infinite;
+    animation-delay: -3.5s;
+    /*定义动画何时开始
+    time允许为负值，-3.5s使动画马上开始，但跳过 3.5 秒进入动画*/
+}
+
+form {
+    position: absolute;
+    inset: 2px;
+    /*inset 定位元素的 top、right、bottom、left这些属性的简写。*/
+    border-radius: 8px;
+    background: #28292d;
+    z-index: 10;
+    padding: 50px 40px;
+    display: flex;
+    flex-direction: column;
+    /*灵活的将项目垂直显示，正如一个列一样。*/
+}
+
+form h2 {
+    color: #45f3ff;
+    font-weight: 530;
+    text-align: center;
+    letter-spacing: 0.1em;
+}
+
+.inputBox {
+    width: 300px;
+    margin-top: 30px;
+    position: relative;
+}
+
+.inputBox input {
+    width: 100%;
+    padding: 20px 10px 10px;
+    background: transparent;
+    /*如果一个元素覆盖在另外一个元素之上，而你想显示下面的元素，
+    这时你就需要把上层这个元素的background设置transparent*/
+    border: none; /*去除input边框*/
+    outline: none; /*去除点击输入框后的默认框！！！*/
+    color: #5b5b5b;
+    position: relative;
+    font-size: 1em;
+    letter-spacing: 0.07em;
+    z-index: 10;
+}
+
+.inputBox span {
+    position: absolute;
+    left: 0;
+    padding: 20px 0 10px;
+    font-size: 1em;
+    color: #8f8f8f;
+    pointer-events: none;
+    /*pointer-events: none;理解：你可以看的到某个元素，但是你
+    无法摸的着，点击不到，点击会穿透触发到下层的元素*/
+    letter-spacing: 0.07em;
+    transition: 0.5s;
+    /*变换过渡的时间*/
+}
+
+/*:valid:有效，即当填写的内容符合要求的时候触发。(required)
+:invalid:无效，即当填写的内容不符合要求的时候触发。*/
+.inputBox input:valid ~ span,
+.inputBox input:focus ~ span {
+    color: #45f3ff;
+    transform: translateX(0px) translateY(-35px);
+    font-size: 0.75em;
+}
+
+.inputBox i {
+    width: 100%;
+    height: 2px;
+    background: #45f3ff;
+    border-radius: 4px;
+    transition: 0.5s;
+    pointer-events: none;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    z-index: 9;
+}
+
+.inputBox input:valid ~ i,
+.inputBox input:focus ~ i {
+    height: 40px;
+}
+
+.links {
+    display: flex;
+    justify-content: space-between;
+    /*弹性项目以均匀的间距放置在项目被推到开始和最后一个项目
+    被推到结束的地方。*/
+}
+
+.links a {
+    margin: 10px 0;
+    font-size: 0.75em;
+    color: #8f8f8f;
+    text-decoration: none;
+}
+
+.links a:hover,
+.links a:nth-child(2) {
+    color: #45f3ff;
+}
+
+input[type="submit"] {
+    border: none;
+    /*outline: none;*/
+    background: #45f3ff;
+    padding: 11px 0;
+    width: 100%;
+    margin-top: 10px;
+    border-radius: 4px;
+    font-weight: 700;
+    cursor: pointer;
+    /*cursor : 网页浏览时用户鼠标指针的样式或图形形状。
+    属性值：
+    default：默认光标（通常是一个箭头）
+    auto：默认，浏览器设置的光标
+    crosshair：光标为十字线
+    pointer：光标为一只手 //I
+    move：光标为某对象可移动
+    text：光标指示文本
+    wait：光标指示程序正在忙（通常是一只表或者一个沙漏）*/
+}
+
+input[type="submit"]:active {
+    opacity: 0.8; /*设置元素的不透明级别*/
+}
