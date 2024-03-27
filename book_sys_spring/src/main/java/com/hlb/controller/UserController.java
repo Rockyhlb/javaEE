@@ -1,5 +1,6 @@
 package com.hlb.controller;
 
+import com.hlb.constants.Constants;
 import com.hlb.model.UserInfo;
 import com.hlb.service.UserService;
 import lombok.extern.slf4j.Slf4j;
@@ -41,7 +42,7 @@ public class UserController {
         if (userInfo != null) {
             // 创建会话
             userInfo.setPassword("");
-            session.setAttribute("curUser",userInfo);
+            session.setAttribute(Constants.USER_SESSION_KEY,userInfo);
             return true;
         }
         return false;

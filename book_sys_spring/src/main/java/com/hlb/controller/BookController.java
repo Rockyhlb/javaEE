@@ -1,8 +1,7 @@
 package com.hlb.controller;
 
-import com.hlb.model.BookInfo;
-import com.hlb.model.PageRequest;
-import com.hlb.model.PageResult;
+import com.hlb.constants.Constants;
+import com.hlb.model.*;
 import com.hlb.service.BookService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,10 +33,14 @@ public class BookController {
      * 返回： PageResult<BookInfo>
      * */
     @RequestMapping("/getListByPage")
-    public PageResult<BookInfo> getListByPage(PageRequest pageRequest) {
+    public Result<PageResult<BookInfo>> getListByPage(PageRequest pageRequest) {
         // 返回列表
         log.info("分页查询：pageRequest:{}",pageRequest);
-        return bookService.getListByPage(pageRequest);
+        if (pageRequest.getCurrentPage() < 1) {
+            return Result.fail("非法参数..");
+        }
+        PageResult<BookInfo> pageResult = bookService.getListByPage(pageRequest);
+        return Result.success(pageResult);
     }
 
     /*
@@ -51,6 +54,7 @@ public class BookController {
     @RequestMapping("/addBook")
     public String addBook(BookInfo bookInfo) {
         log.info("添加图书:{}",bookInfo);
+        // 参数校验
         if (!StringUtils.hasLength(bookInfo.getBookName())
               || !StringUtils.hasLength(bookInfo.getAuthor())
               || bookInfo.getCount() == null
@@ -94,6 +98,7 @@ public class BookController {
     @RequestMapping("/updateBook")
     public String updateBook(BookInfo bookInfo) {
         log.info("更新图书, book:{}",bookInfo);
+        // 校验参数
         if (bookInfo.getId() < 0) {
             return "图书Id不合法..";
         }
