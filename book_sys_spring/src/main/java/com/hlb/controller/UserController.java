@@ -30,19 +30,20 @@ public class UserController {
     // 返回： true/false
     @Autowired
     private UserService userService;
+
     @RequestMapping("/login")
     public boolean login(String userName, String passWord, HttpSession session) {
-        log.info("登陆验证：username:{}",userName);
+        log.info("登陆验证：username:{}", userName);
         // 校验输入是否为空
         if (!StringUtils.hasLength(userName) || !StringUtils.hasLength(passWord)) {
             return false;
         }
         // 调用业务逻辑层验证账户密码是否正确，并返回查询到的用户对象
-        UserInfo userInfo = userService.checkLogin(userName,passWord);
+        UserInfo userInfo = userService.checkLogin(userName, passWord);
         if (userInfo != null) {
             // 创建会话
             userInfo.setPassword("");
-            session.setAttribute(Constants.USER_SESSION_KEY,userInfo);
+            session.setAttribute(Constants.USER_SESSION_KEY, userInfo);
             return true;
         }
         return false;

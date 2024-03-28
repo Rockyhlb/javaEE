@@ -22,20 +22,13 @@ public class WebConfig implements WebMvcConfigurer {
     @Autowired
     private LoginInterceptor loginInterceptor;
 
-    private final List<String> excludePaths = Arrays.asList(
-            "/user/login",
-            "/**/*.html",
-            "/css/**",
-            "/js/**",
-            "/image/**"
-    );
+    private final List<String> excludePaths = Arrays.asList("/user/login", "/**/*.html", "/css/**", "/js/**", "/image/**");
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         // 注册自定义拦截器对象
         // "/**"：表示对所有的路径都生效，拦截所有请求
         // "/*": 表示一级路径
-        registry.addInterceptor(loginInterceptor).addPathPatterns("/**")
-                .excludePathPatterns(excludePaths); // 排除必要的网页路径
+        registry.addInterceptor(loginInterceptor).addPathPatterns("/**").excludePathPatterns(excludePaths); // 排除必要的网页路径
     }
 }

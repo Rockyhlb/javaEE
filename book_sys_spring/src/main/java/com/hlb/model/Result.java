@@ -34,6 +34,7 @@ public class Result<T> {
         result.setErrmsg(errmsg);
         return result;
     }
+
     public static <T> Result<T> fail(String errmsg) {
         Result<T> result = new Result<>();
         result.setCode(ResultStatus.FAILED.getCode());

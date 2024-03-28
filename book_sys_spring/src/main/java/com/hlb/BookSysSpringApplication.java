@@ -6,6 +6,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class BookSysSpringApplication {
     public static void main(String[] args) {
-        SpringApplication. run(BookSysSpringApplication.class, args);
+        SpringApplication.run(BookSysSpringApplication.class, args);
     }
 }

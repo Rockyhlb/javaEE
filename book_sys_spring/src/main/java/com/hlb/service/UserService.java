@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 public class UserService {
     @Autowired
     private UserMapper userMapper;
+
     public UserInfo checkLogin(String userName, String passWord) {
         // 从数据库中取数据进行验证
         UserInfo userInfo = userMapper.queryByUserName(userName);

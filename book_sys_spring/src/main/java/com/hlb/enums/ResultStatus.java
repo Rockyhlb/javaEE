@@ -8,12 +8,9 @@ package com.hlb.enums;
  * @Author: code_hlb
  */
 public enum ResultStatus {
-    // 成功响应
-    SUCCESS(200),
-    // 未登陆
-    UNLOGIN(-1),
-    // 响应失败
-    FAILED(-2);
+    SUCCESS(200),  // 成功响应
+    UNLOGIN(-1), // 未登陆
+    FAILED(-2);  // 响应失败
     private Integer code;
 
     ResultStatus(int code) {

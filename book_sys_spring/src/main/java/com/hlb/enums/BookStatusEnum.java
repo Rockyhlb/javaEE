@@ -8,9 +8,9 @@ package com.hlb.enums;
  * @Author: code_hlb
  */
 public enum BookStatusEnum {
-    DELETED(0,"无效"),
-    NORMAL(1,"可借阅"),
-    FORBIDDEN(2,"不可借阅");
+    DELETED(0, "无效"),
+    NORMAL(1, "可借阅"),
+    FORBIDDEN(2, "不可借阅");
 
     private int code;
     private String message;

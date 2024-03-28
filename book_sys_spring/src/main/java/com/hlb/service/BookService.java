@@ -31,7 +31,7 @@ public class BookService {
         try {
             bookMapper.insertBook(bookInfo);
             return "";
-        }catch (Exception e) {
+        } catch (Exception e) {
             log.error("添加失败");
             return e.getMessage();
         }
@@ -41,10 +41,10 @@ public class BookService {
         Integer count = bookMapper.countBooks();
         List<BookInfo> bookInfos = bookMapper.queryBooksByPage(pageRequest);
         // 采用枚举类型完成 状态码 到 描述 之间的转换
-        for (BookInfo book: bookInfos) {
+        for (BookInfo book : bookInfos) {
             book.setStatusCN(BookStatusEnum.getMessageByCode(book.getStatus()).getMessage());
         }
-        return new PageResult<>(count,bookInfos,pageRequest);
+        return new PageResult<>(count, bookInfos, pageRequest);
     }
 
     public BookInfo queryBookById(Integer bookId) {
@@ -54,7 +54,7 @@ public class BookService {
     public Integer countBooks() {
         try {
             return bookMapper.countBooks();
-        }catch (Exception e) {
+        } catch (Exception e) {
             log.error("查找图书数量失败, e: ", e);
             return -1;
         }
@@ -67,8 +67,8 @@ public class BookService {
                 return "更新失败..";
             }
             return "";
-        }catch (Exception e) {
-            log.error("更新图书失败, e: ",e);
+        } catch (Exception e) {
+            log.error("更新图书失败, e: ", e);
             return e.getMessage();
         }
     }

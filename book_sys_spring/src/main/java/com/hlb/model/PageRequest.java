@@ -17,6 +17,7 @@ public class PageRequest {
     private Integer pageSize = 10;
     // 记录偏移量  --> 当前页从哪条数据开始查询
     private Integer offset;
+
     // 翻页查询：  select * from book_info where status <> 0 limit #{offset],#{pageSize}
     // 第一页数据：select * from book_info where status <> 0 limit 0,10
     // 第一页数据：select * from book_info where status <> 0 limit 10,10
