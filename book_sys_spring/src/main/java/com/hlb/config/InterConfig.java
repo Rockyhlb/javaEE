@@ -17,12 +17,12 @@ import java.util.List;
  * @Author: code_hlb
  */
 @Configuration
-public class WebConfig implements WebMvcConfigurer {
+public class InterConfig implements WebMvcConfigurer {
     // 取出注入的自定义拦截器对象
     @Autowired
     private LoginInterceptor loginInterceptor;
 
-    private final List<String> excludePaths = Arrays.asList("/user/login", "/**/*.html", "/css/**", "/js/**", "/image/**");
+    private final List<String> excludePaths = Arrays.asList("/user/**", "/**/*.html", "/css/**", "/js/**", "/image/**");
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {

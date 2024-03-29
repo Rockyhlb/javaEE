@@ -9,6 +9,7 @@ CREATE TABLE user_info
     `id`          INT          NOT NULL AUTO_INCREMENT,
     `user_name`   VARCHAR(128) NOT NULL,
     `password`    VARCHAR(128) NOT NULL,
+    `email`       varchar(128) not null,
     `delete_flag` TINYINT(4)   NULL DEFAULT 0,
     `create_time` DATETIME          DEFAULT now(),
     `update_time` DATETIME          DEFAULT now() ON UPDATE now(),
@@ -35,12 +36,12 @@ CREATE TABLE `book_info`
   DEFAULT CHARSET = utf8mb4;
 
 -- 初始化用户数据
-INSERT INTO user_info (`user_name`, `password`)
-VALUES ('admin', 'admin');
-INSERT INTO user_info (`user_name`, `password`)
-VALUES ('zhangsan', '123456');
-INSERT INTO user_info (`user_name`, `password`)
-VALUES ('lisi', '000000');
+INSERT INTO user_info (`user_name`, `password`, `email`)
+VALUES ('admin', 'admin', '3637847@qq.com');
+INSERT INTO user_info (`user_name`, `password`, `email`)
+VALUES ('zhangsan', '000000', '3218123@qq.com');
+INSERT INTO user_info (`user_name`, `password`, `email`)
+VALUES ('lisi', '000000', '7982137@qq.com');
 select *
 from user_info;
 

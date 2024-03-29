@@ -1,5 +1,6 @@
 package com.hlb.mapper;
 
+import com.hlb.model.UserInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -12,6 +13,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 class UserMapperTest {
     @Autowired
     private UserMapper userMapper;
+
     @BeforeEach
     void setUp() {
         log.info("Starting.............");
@@ -25,5 +27,14 @@ class UserMapperTest {
     @Test
     void queryByUserName() {
         log.info(userMapper.queryByUserName("admin").toString());
+    }
+
+    @Test
+    void register() {
+        UserInfo userInfo = new UserInfo();
+        userInfo.setUserName("wangwu");
+        userInfo.setPassword("098776");
+        userInfo.setEmail("787928@qq.com");
+        log.info(userMapper.register(userInfo).toString());
     }
 }

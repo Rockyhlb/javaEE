@@ -16,6 +16,7 @@ public class UserInfo {
     private Integer id;
     private String userName;
     private String password;
+    private String email;
     private Integer deleteFlag;
     private Date createTime;
     private Date updateTime;

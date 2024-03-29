@@ -10,7 +10,8 @@ package com.hlb.enums;
 public enum ResultStatus {
     SUCCESS(200),  // 成功响应
     UNLOGIN(-1), // 未登陆
-    FAILED(-2);  // 响应失败
+    FAILED(-2),  // 响应失败
+    NOUSER(1);   // 没有该用户
     private Integer code;
 
     ResultStatus(int code) {

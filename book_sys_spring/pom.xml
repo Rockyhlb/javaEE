@@ -10,7 +10,7 @@
     </parent>
     <groupId>com.example</groupId>
     <artifactId>book_sys_spring</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.3-SNAPSHOT</version>
     <name>book_sys_spring</name>
     <description>book_sys_spring</description>
     <properties>
@@ -45,6 +45,7 @@
             <artifactId>mysql-connector-j</artifactId>
             <scope>runtime</scope>
         </dependency>
+
         <dependency>
             <groupId>org.jetbrains</groupId>
             <artifactId>annotations</artifactId>
@@ -52,6 +53,12 @@
             <scope>compile</scope>
         </dependency>
 
+        <!-- 引入验证码的jar包依赖 -->
+        <dependency>
+            <groupId>com.oopsguy.kaptcha</groupId>
+            <artifactId>kaptcha-spring-boot-starter</artifactId>
+            <version>1.0.0-beta-2</version>
+        </dependency>
 
     </dependencies>
 

@@ -2,7 +2,6 @@ package com.hlb.model;
 
 import com.hlb.enums.ResultStatus;
 import lombok.Data;
-import org.jetbrains.annotations.NotNull;
 
 /**
  * @BelongsProject: book_sys_spring
@@ -47,6 +46,14 @@ public class Result<T> {
         Result<T> result = new Result<>();
         result.setCode(ResultStatus.UNLOGIN.getCode());
         result.setErrmsg("用户未登陆..");
+        return result;
+    }
+
+    public static <T> Result<T> noUser(String errmsg) {
+        Result<T> result = new Result<>();
+        // 当后端返回的result业务状态码为 1 时，说明没有当前用户
+        result.setCode(ResultStatus.NOUSER.getCode());
+        result.setErrmsg(errmsg);
         return result;
     }
 }
