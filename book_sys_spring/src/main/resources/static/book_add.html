@@ -70,16 +70,20 @@
             // $("#addBook").serialize() 以键值对的形式，key为标签name属性,提交整个表单的数据
             data: $("#addBook").serialize(),
             success: function (result) {
-                if (result == "") {
+                if (result.code == 200 && result.data == "") {
                     alert("添加成功");
                     location.href = "book_list.html";
                 } else {
                     console.log(result);
-                    alert("添加失败：" + result);
+                    alert("添加失败，请检查输入..");
                 }
             },
             error: function (error) {
                 console.log(error);
+                if (error != null && error.status == 401) {
+                    // 根据返回的401状态码知当前处于未登录状态
+                    location.href = "login.html";
+                }
             }
         });
     }

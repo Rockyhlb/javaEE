@@ -42,7 +42,7 @@ public class UserService {
             return Result.fail("注册失败，请检查输入是否有误..");
         } catch (Exception e) {
             log.error("注册失败, Exception: {}", e.getMessage());
-            return Result.fail("发生内部错误，请联系管理员...");
+            return Result.fail("当前用户名已被注册...");
         }
     }
 

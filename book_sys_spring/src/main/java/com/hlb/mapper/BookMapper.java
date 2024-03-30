@@ -17,12 +17,15 @@ import java.util.List;
  */
 @Mapper
 public interface BookMapper {
-    @Insert("insert into book_info (book_name,author,count,price,publish,status) " +
-            "values (#{bookName},#{author},#{count},#{price},#{publish},#{status})")
+    @Insert("insert into book_info (book_name,author,count,price,publish,status) " + "values (#{bookName},#{author},#{count},#{price},#{publish},#{status})")
     Integer insertBook(BookInfo bookInfo);
 
     @Select("select count(1) from book_info where status <> 0")
     Integer countBooks();
+
+    // 通过排序后找最后一位ID
+    @Select("select id from book_info where status <> 0 order by id desc limit 1")
+    Integer selectLastId();
 
     @Select("select * from book_info where `status` <> 0 order by `id` asc limit #{offset},#{pageSize}")
     List<BookInfo> queryBooksByPage(PageRequest pageRequest);

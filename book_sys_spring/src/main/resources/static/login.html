@@ -51,17 +51,13 @@
                         passWord: passWord
                     },
                     success: function(result) {
-                        if(result == true) {
+                        if(result.code == 200 && result.data == true) {
                             // 使用前端路由进行页面导航
                             window.location.href = "book_list.html";
                         } else {
                             // 登陆失败
                             alert("用户名或密码错误，请重新登陆！");
                         }
-                    },
-                    error: function(xhr, status, error) {
-                        // 处理错误
-                        console.error("登录请求发生错误:", error);
                     }
                 });
             });

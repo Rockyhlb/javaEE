@@ -5,6 +5,7 @@ import com.hlb.mapper.BookMapper;
 import com.hlb.model.BookInfo;
 import com.hlb.model.PageRequest;
 import com.hlb.model.PageResult;
+import com.hlb.model.Result;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,13 +28,13 @@ public class BookService {
     @Autowired
     private BookMapper bookMapper;
 
-    public String addBook(BookInfo bookInfo) {
+    public Result addBook(BookInfo bookInfo) {
         try {
             bookMapper.insertBook(bookInfo);
-            return "";
+            return Result.success("");
         } catch (Exception e) {
             log.error("添加失败");
-            return e.getMessage();
+            return Result.fail("发生内部错误，请联系管理员...");
         }
     }
 
@@ -75,5 +76,9 @@ public class BookService {
 
     public Integer batchDelete(List<Integer> ids) {
         return bookMapper.batchDelete(ids);
+    }
+
+    public Integer selectLaseId() {
+        return bookMapper.selectLastId();
     }
 }

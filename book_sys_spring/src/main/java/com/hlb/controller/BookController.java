@@ -52,7 +52,7 @@ public class BookController {
      * 返回：String 添加成功则返回空字符串
      * */
     @RequestMapping("/addBook")
-    public String addBook(BookInfo bookInfo) {
+    public Result addBook(BookInfo bookInfo) {
         log.info("添加图书:{}", bookInfo);
         // 参数校验
         if (!StringUtils.hasLength(bookInfo.getBookName())
@@ -62,7 +62,7 @@ public class BookController {
                 || !StringUtils.hasLength(bookInfo.getPublish())
                 || bookInfo.getStatus() == null
         ) {
-            return "图书参数有误，请检查参数...";
+            Result.fail(-2, "图书参数有误，请检查参数...");
         }
         return bookService.addBook(bookInfo);
     }
@@ -78,8 +78,8 @@ public class BookController {
     @RequestMapping("/queryBookById")
     public BookInfo queryBookById(Integer bookId) {
         log.info("查询图书, bookId:{}", bookId);
-        // 校验参数
-        Integer count = bookService.countBooks();
+        // 校验参数,由于id是auto_increment的特性，导致当永久删除图书时，id并不会回退，因此不能使用count(1)查找有效书籍数量
+        Integer count = bookService.selectLaseId();
         if (bookId == null || bookId < 1 || bookId > count) {
             log.error("非法ID,bookId:{}", bookId);
             return null;
@@ -95,7 +95,9 @@ public class BookController {
      * 参数：BookInfo
      * 返回：String
      * */
-    @RequestMapping("/updateBook")
+    @RequestMapping(value = "/updateBook", produces = "application/json")
+    // 由于String默认返回格式是 text/plain 的格式，因此前端无法通过 result.code 的方式获取属性，因此需要先进行统一功能处理，再进行json格式的设置
+    // 通过设置 content-type的方式解决接口返回String的问题，其实应该直接避免使用 String 作为返回类型
     public String updateBook(BookInfo bookInfo) {
         log.info("更新图书, book:{}", bookInfo);
         // 校验参数

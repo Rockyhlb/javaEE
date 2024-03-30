@@ -152,10 +152,11 @@
                         status: 0
                     },
                     success: function (result) {
-                        if (result == "") {
+                        if (result.code == 200 && result.data != null) {
                             alert("删除成功");
                             location.href = "book_list.html";
                         } else {
+                            alert(result.errmsg);
                             console.log(result);
                         }
                     }
@@ -196,7 +197,7 @@
                     type: "get",
                     url: "/user/logout",
                     success: function (result) {
-                        if (result) {
+                        if (result.code == 200 && result.data == true) {
                             location.href = "login.html";
                         } else {
                             alert("退出失败");
