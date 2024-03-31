@@ -1,7 +1,10 @@
-package com.hlb.controller;
+package com.hlb.book.controller;
 
-import com.hlb.model.*;
-import com.hlb.service.BookService;
+import com.hlb.book.model.BookInfo;
+import com.hlb.book.model.PageRequest;
+import com.hlb.book.model.PageResult;
+import com.hlb.book.model.Result;
+import com.hlb.book.service.BookService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
@@ -18,8 +21,8 @@ import java.util.List;
  * @Description: 表现层：图书
  * @Author: code_hlb
  */
-@RestController
 @Slf4j
+@RestController
 @RequestMapping("/book")
 public class BookController {
     @Autowired // 取对象

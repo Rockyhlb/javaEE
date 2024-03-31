@@ -1,6 +1,6 @@
-package com.hlb.config;
+package com.hlb.book.config;
 
-import com.hlb.model.Result;
+import com.hlb.book.model.Result;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -45,5 +45,11 @@ public class ErrorHandler {
     public Result handler(RuntimeException e) {
         log.error("捕获异常, e:", e);
         return Result.fail("内部发生RuntimeException错误");
+    }
+
+    @ExceptionHandler
+    public Result handler(RegisterException e) {
+        log.error("捕获异常, e:", e);
+        return Result.fail(e.getMessage());
     }
 }

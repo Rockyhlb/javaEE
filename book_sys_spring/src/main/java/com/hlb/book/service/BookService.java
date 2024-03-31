@@ -1,11 +1,11 @@
-package com.hlb.service;
+package com.hlb.book.service;
 
-import com.hlb.enums.BookStatusEnum;
-import com.hlb.mapper.BookMapper;
-import com.hlb.model.BookInfo;
-import com.hlb.model.PageRequest;
-import com.hlb.model.PageResult;
-import com.hlb.model.Result;
+import com.hlb.book.enums.BookStatusEnum;
+import com.hlb.book.mapper.BookMapper;
+import com.hlb.book.model.BookInfo;
+import com.hlb.book.model.PageRequest;
+import com.hlb.book.model.PageResult;
+import com.hlb.book.model.Result;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

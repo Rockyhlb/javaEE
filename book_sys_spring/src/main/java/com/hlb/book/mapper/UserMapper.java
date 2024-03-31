@@ -1,6 +1,6 @@
-package com.hlb.mapper;
+package com.hlb.book.mapper;
 
-import com.hlb.model.UserInfo;
+import com.hlb.book.model.UserInfo;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;

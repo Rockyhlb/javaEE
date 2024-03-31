@@ -1,7 +1,7 @@
-package com.hlb.mapper;
+package com.hlb.book.mapper;
 
-import com.hlb.model.BookInfo;
-import com.hlb.model.PageRequest;
+import com.hlb.book.model.BookInfo;
+import com.hlb.book.model.PageRequest;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;

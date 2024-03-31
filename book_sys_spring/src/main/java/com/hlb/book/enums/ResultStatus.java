@@ -1,4 +1,4 @@
-package com.hlb.enums;
+package com.hlb.book.enums;
 
 /**
  * @BelongsProject: book_sys_spring

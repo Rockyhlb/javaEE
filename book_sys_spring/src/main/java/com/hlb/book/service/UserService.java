@@ -1,9 +1,10 @@
-package com.hlb.service;
+package com.hlb.book.service;
 
-import com.hlb.constants.Constants;
-import com.hlb.mapper.UserMapper;
-import com.hlb.model.Result;
-import com.hlb.model.UserInfo;
+import com.hlb.book.config.RegisterException;
+import com.hlb.book.constants.Constants;
+import com.hlb.book.mapper.UserMapper;
+import com.hlb.book.model.Result;
+import com.hlb.book.model.UserInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -33,7 +34,7 @@ public class UserService {
         return passWord.equals(userInfo.getPassword()) ? userInfo : null;
     }
 
-    public Result<UserInfo> register(UserInfo userInfo) {
+    public Result<UserInfo> register(UserInfo userInfo) throws RegisterException {
         try {
             if (userMapper.register(userInfo) > 0) {
                 userInfo.setPassword("");
@@ -42,7 +43,7 @@ public class UserService {
             return Result.fail("注册失败，请检查输入是否有误..");
         } catch (Exception e) {
             log.error("注册失败, Exception: {}", e.getMessage());
-            return Result.fail("当前用户名已被注册...");
+            throw new RegisterException("当前用户名已被注册...");
         }
     }
 

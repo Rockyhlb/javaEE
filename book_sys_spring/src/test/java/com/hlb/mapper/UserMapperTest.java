@@ -1,6 +1,7 @@
 package com.hlb.mapper;
 
-import com.hlb.model.UserInfo;
+import com.hlb.book.mapper.UserMapper;
+import com.hlb.book.model.UserInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;

@@ -60,6 +60,12 @@
             <version>1.0.0-beta-2</version>
         </dependency>
 
+        <!-- 引入 SpringAop 依赖 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-aop</artifactId>
+        </dependency>
+
     </dependencies>
 
     <build>

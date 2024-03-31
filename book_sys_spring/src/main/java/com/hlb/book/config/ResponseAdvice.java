@@ -1,7 +1,7 @@
-package com.hlb.config;
+package com.hlb.book.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.hlb.model.Result;
+import com.hlb.book.model.Result;
 import lombok.SneakyThrows;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.MediaType;

@@ -1,4 +1,4 @@
-package com.hlb.constants;
+package com.hlb.book.constants;
 
 /**
  * @BelongsProject: book_sys_spring

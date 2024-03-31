@@ -1,6 +1,6 @@
-package com.hlb.config;
+package com.hlb.book.config;
 
-import com.hlb.interceptor.LoginInterceptor;
+import com.hlb.book.interceptor.LoginInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -22,7 +22,7 @@ public class WebConfigure implements WebMvcConfigurer {
     @Autowired
     private LoginInterceptor loginInterceptor;
 
-    private final List<String> excludePaths = Arrays.asList("/user/**", "/**/login.html", "/css/**", "/js/**", "/image/**");
+    private final List<String> excludePaths = Arrays.asList("/user/**", "/**/user_regist.html", "/**/user_update.html", "/**/login.html", "/css/**", "/js/**", "/image/**");
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {

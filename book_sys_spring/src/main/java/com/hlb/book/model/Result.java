@@ -1,6 +1,6 @@
-package com.hlb.model;
+package com.hlb.book.model;
 
-import com.hlb.enums.ResultStatus;
+import com.hlb.book.enums.ResultStatus;
 import lombok.Data;
 
 /**

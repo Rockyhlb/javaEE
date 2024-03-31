@@ -1,7 +1,7 @@
-package com.hlb.interceptor;
+package com.hlb.book.interceptor;
 
-import com.hlb.constants.Constants;
-import com.hlb.model.UserInfo;
+import com.hlb.book.constants.Constants;
+import com.hlb.book.model.UserInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -26,7 +26,7 @@ public class LoginInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         // 通过拦截器拦截所有的请求，并进行Session校验
-        log.info("preHandle...目标方法执行前执行");
+        log.info("preHandle..进行身份校验");
         // 验证登陆情况
         HttpSession session = request.getSession();
         UserInfo userInfo = (UserInfo) session.getAttribute(Constants.USER_SESSION_KEY);

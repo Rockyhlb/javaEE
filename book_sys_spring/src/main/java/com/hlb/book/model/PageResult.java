@@ -1,4 +1,4 @@
-package com.hlb.model;
+package com.hlb.book.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

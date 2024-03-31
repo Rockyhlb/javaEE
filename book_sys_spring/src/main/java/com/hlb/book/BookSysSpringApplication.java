@@ -1,4 +1,4 @@
-package com.hlb;
+package com.hlb.book;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

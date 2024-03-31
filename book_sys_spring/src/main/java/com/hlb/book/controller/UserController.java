@@ -1,10 +1,11 @@
-package com.hlb.controller;
+package com.hlb.book.controller;
 
-import com.hlb.constants.Constants;
-import com.hlb.enums.CaptchaStatusEnum;
-import com.hlb.model.Result;
-import com.hlb.model.UserInfo;
-import com.hlb.service.UserService;
+import com.hlb.book.config.RegisterException;
+import com.hlb.book.constants.Constants;
+import com.hlb.book.enums.CaptchaStatusEnum;
+import com.hlb.book.model.Result;
+import com.hlb.book.model.UserInfo;
+import com.hlb.book.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
@@ -84,7 +85,7 @@ public class UserController {
      * 返回： Result
      * */
     @RequestMapping("/register")
-    public Result<UserInfo> register(UserInfo userInfo, String inputCaptcha, HttpSession httpSession) {
+    public Result<UserInfo> register(UserInfo userInfo, String inputCaptcha, HttpSession httpSession) throws RegisterException {
         log.info("注册用户：userInfo:{}, inputCaptcha:{}", userInfo, inputCaptcha);
         // 1、先校验输入是否为空
         if (userInfo.getUserName() == null ||
