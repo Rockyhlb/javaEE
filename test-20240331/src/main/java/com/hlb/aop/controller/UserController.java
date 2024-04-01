@@ -14,20 +14,18 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @Slf4j
 @RestController
-@RequestMapping("/test")
-public class TestController {
-    @TimeRecord   // 在连接点的方法上添加自定义注解
-    @RequestMapping("/t1")
-    public String t1() {
-        log.info("执行t1方法...");
-        return "t1";
+@RequestMapping("/user")
+public class UserController {
+    @RequestMapping("/u1")
+    public String u1() {
+        log.info("执行u1方法...");
+        return "u1";
     }
 
-    @RequestMapping("/t2")
-    public String t2() {
-        log.info("执行t2方法...");
-        // 构造异常
-        int a = 10 / 0;
-        return "t2";
+    @TimeRecord   // 使用该注解
+    @RequestMapping("/u2")
+    public String u2() {
+        log.info("执行u2方法...");
+        return "u2";
     }
 }
