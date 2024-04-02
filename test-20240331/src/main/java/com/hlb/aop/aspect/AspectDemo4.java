@@ -19,7 +19,7 @@ import org.springframework.stereotype.Component;
 @Slf4j
 @Aspect
 @Order(2)
-@Component
+//@Component
 public class AspectDemo4 {
     @Pointcut("execution(* com.hlb.aop.controller.*.*(..))")
     public void pt() {

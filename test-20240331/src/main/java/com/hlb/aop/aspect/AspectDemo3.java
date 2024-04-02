@@ -18,7 +18,7 @@ import org.springframework.stereotype.Component;
 @Slf4j
 @Aspect
 @Order(3)  // order 值越小，优先级越高
-@Component
+//@Component
 public class AspectDemo3 {
     // 通过 @Order 注解控制 切面通知的执行顺序
     @Pointcut("execution(* com.hlb.aop.controller.*.*(..))")
