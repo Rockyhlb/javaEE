@@ -34,7 +34,7 @@ public class TransactionalController {
         Integer result = userInfoService.register(userName, password);
         log.info("插入数据成功，res:{}", result);
         // 构造异常，由于没有处理异常，此时发生事务的回滚
-        int excep = 10/0;
+        int excep = 10 / 0;
         return "注册成功..";
         // 我们一般会把事务的控制放在业务逻辑层，因为业务逻辑层中的一个业务功能，可能包含着多个数据访问的操作，
         // 因此就可以将多个数据访问操作控制在一个事务中
@@ -47,8 +47,8 @@ public class TransactionalController {
         log.info("插入数据成功，res:{}", result);
         // 对异常进行处理，此时方法被认为是可执行的，因此事务被提交
         try {
-            int excep = 10/0;
-        }catch (Exception e) {
+            int excep = 10 / 0;
+        } catch (Exception e) {
             log.error(e.getMessage());
         }
         return "注册成功..";
@@ -106,24 +106,40 @@ public class TransactionalController {
         // 1、继续把异常抛出去
         // 2、手动设置回滚
         try {
-            int excep = 10/0;
-        }catch (Exception e) {
-            log.error("发生异常，e:{}",e.getMessage());
+            int excep = 10 / 0;
+        } catch (Exception e) {
+            log.error("发生异常，e:{}", e.getMessage());
             throw e;  // 抛出异常，事务回滚
         }
         return "注册成功..";
     }
 
-    // isolation = Isolation.DEFAULT 指定默认的事务隔离级别
-    @Transactional(isolation = Isolation.DEFAULT)
+    /**
+     * SQL标准定义了四种隔离级别：
+     * 1、读未提交(READ UNCOMMITTED): 可以读取到其它事务未提交的内容，因此容易发生‘脏读’问题
+     * 2、读提交(READ COMMITTED): 可以读取到已经提交事务的数据，解决了‘脏读’问题，
+     * 但是发生了‘不可重复读问题’(由于当前事务对其它事务的增删改操作都能感知到，因此不同的时间相同的查询可能会得到不同的结果)
+     * 3、可重复读(REPEATABLE READ): 是Mysql的默认事务隔离级别，事务不会读到其它事务对数据的修改(即使已提交)，也就可以保证每次查询的结果一致，
+     * 解决了‘不可重复度’问题，但是由于可以感知到其它事务新插入的数据，因此也就发生了‘幻读’问题
+     * 4、串行化(SERIALIZABLE): 序列化，事务最高隔离级别，强制事务排序，使其不会发生冲突，从而解决了脏读，不可重复读，幻读问题，但是执行效率最低
+     * <p>
+     * Spring 中事务隔离级别总共有5种:
+     * 1、Isolation.DEFAULT: 默认以连接的数据库事务隔离级别为主
+     * 2、Isolation.READ_UNCOMMITTED: 读未提交，对应SQL标准中的 READ_UNCOMMITTED
+     * 3、Isolation.READ_COMMITTED: 读已提交
+     * 4、Isolation.REPEATABLE_READ: 可重复读
+     * 5、Isolation.SERIALIZABLE: 串行化
+     * Spring 中事务隔离级别可以通过 @Transactional 中的 isolation 属性进⾏设置
+     */
+    @Transactional(isolation = Isolation.DEFAULT)   // 指定默认的事务隔离级别
     @RequestMapping("/r8")
     public String r8(String userName, String password) {
         Integer result = userInfoService.register(userName, password);
         log.info("插入数据成功，res:{}", result);
         try {
-            int excep = 10/0;
-        }catch (Exception e) {
-            log.error("发生异常，e:{}",e.getMessage());
+            int excep = 10 / 0;
+        } catch (Exception e) {
+            log.error("发生异常，e:{}", e.getMessage());
             // 将当前事务设置为回滚状态
             TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
         }
