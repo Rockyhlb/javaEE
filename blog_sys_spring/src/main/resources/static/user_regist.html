@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>book_sys - Sign up</title>
+    <link rel="stylesheet" href="css/user_regist.css">
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+</head>
+
+<body>
+<div class="container">
+    <div class="signup-box">
+        <img src="images/index.png" class="logo">
+        <h1>Create your account</h1>
+        <form id="registerForm">
+            <input type="text" placeholder="Username" id="userName" required>
+            <input type="password" placeholder="Password" id="password" required>
+            <input type="text" placeholder="Github address" id="github" required>
+            <div id="confirm">
+                <input type="text" placeholder="Verification Code" name="inputCaptcha" id="inputCaptcha">
+                <img id="verificationCodeImg" src="/admin/captcha" title="看不清？换一张">
+            </div>
+            <script src="js/jquery.min.js"></script>
+            <button type="submit">Sign up for book_sys</button>
+        </form>
+        <p>Already have an account? <a href="blog_login.html">Sign in</a></p>
+    </div>
+</div>
+<script src="js/jquery.min.js"></script>
+
+<script>
+
+    $("#verificationCodeImg").click(function () {
+        // 点击时重新获取验证码，同时更新时间，防止浏览器缓存
+        $(this).hide().attr('src', '/admin/captcha?dt=' + new Date().getTime()).fadeIn();
+    });
+
+    $(document).ready(function () {
+        $("#registerForm").on("submit", function (event) {
+            event.preventDefault(); // 阻止表单默认提交行为
+            var userName = $("#userName").val();
+            var password = $("#password").val();
+            var email = $("#email").val();
+            var inputCaptcha = $("#inputCaptcha").val();
+            // 进行表单验证
+            $.ajax({
+                type: "post",
+                url: "/user/register",
+                data: {
+                    userName: userName,
+                    password: password,
+                    email: email,
+                    inputCaptcha: inputCaptcha
+                },
+                success: function (result) {
+                    if (200 == result.code) {
+                        // 使用前端路由进行页面导航
+                        alert("账户注册成功..")
+                        window.location.href = "login.html";
+                    } else {
+                        // 注册失败
+                        alert(result.errmsg);
+                        $("#inputCaptcha").val("");
+                    }
+                }
+            });
+        });
+    });
+</script>
+</body>
+
+</html>
