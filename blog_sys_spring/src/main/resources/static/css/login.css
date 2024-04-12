@@ -142,6 +142,18 @@ form h2 {
     height: 40px;
 }
 
+.msg-error {
+    /* position: absolute; */
+    background: #f4f5f6cd;;
+    border: none;
+    margin-top: 8px;
+    padding: 0;
+    font-size: x-small;
+    line-height: normal;
+    color: rgba(250, 44, 25, 1);
+    opacity: 0.9;
+}
+
 .links {
     display: flex;
     justify-content: space-between;
@@ -158,7 +170,7 @@ form h2 {
 
 .links a:hover,
 .links a:nth-child(2) {
-    color: #45f3ff;
+    color: #d36ed0;
 }
 
 input[type="submit"] {

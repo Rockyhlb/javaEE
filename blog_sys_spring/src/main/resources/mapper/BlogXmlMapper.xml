@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace 声明实现的是哪个接口 -->
+<mapper namespace="com.hlb.blog.mapper.BlogMapper">
+    <!--
+       修改博客：udpate blog set title=#{title},content=#{content} where id=#{id}
+       删除博客：update blog set delete_flag=#{deleteFlag} where id = #{id}
+    -->
+    <update id="updateBlog">
+        update blog
+        <set>
+            <if test="title != null">
+                title=#{title},
+            </if>
+            <if test="content != null">
+                content=#{content},
+            </if>
+            <if test="deleteFlag != null">
+                delete_flag = #{deleteFlag},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+</mapper>

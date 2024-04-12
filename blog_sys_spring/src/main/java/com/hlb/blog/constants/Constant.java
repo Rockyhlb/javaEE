@@ -8,10 +8,13 @@ package com.hlb.blog.constants;
  * @Author: code_hlb
  */
 public class Constant {
-    public static final String USER_SESSION_KEY = "user_session_key";
     // Kaptcha插件默认把验证码存储在Session⾥
     public static final String CAPTCHA_SESSION_KEY = "CAPTCHA_SESSION_KEY";
     public static final String CAPTCHA_SESSION_DATE = "CAPTCHA_SESSION_DATE";
     // 设置验证码的有效时间为 1min
     public static final long TIME_OUT = 60 * 1000;
+
+    // 存储在令牌中的用户ID
+    public static final String USER_CLAIM_ID = "id";
+    public static final String USER_CLAIM_USER_NAME = "name";
 }

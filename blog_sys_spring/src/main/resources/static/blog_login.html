@@ -21,21 +21,6 @@
 </div>
 
 <div class="container-login">
-    <!-- <div class="login-dialog">
-        <h3>登陆</h3>
-        <div class="row">
-            <span>用户名</span>
-            <input type="text" name="username" id="username">
-        </div>
-        <div class="row">
-            <span>密码</span>
-            <input type="password" name="password" id="password">
-        </div>
-        <div class="row">
-            <button id="submit" onclick="login()">提交</button>
-        </div>
-
-    </div> -->
 
     <div class="box">
 
@@ -49,13 +34,15 @@
 
             <div class="inputBox">
                 <span>Password</span>
-                <input type="password" id="passWord" required>
+                <input type="password" id="password" required>
                 <i></i>
             </div>
 
+            <div class="msg-error"></div>
+
             <div class="links">
                 <a href="user_update.html">Forgot Password</a>
-                <a href="user_regist.html">Signup</a>
+                <a href="user_register.html">Signup</a>
             </div>
 
             <input type="submit" value="login">
@@ -66,9 +53,30 @@
 </div>
 <script src="js/jquery.min.js"></script>
 <script>
-    function login() {
-        location.assign("blog_list.html");
-    }
+    $(document).ready(function () {
+        $("#loginForm").on("submit", function (event) {
+            event.preventDefault(); // 阻止表单默认提交行为
+            // 进行表单验证
+            $.ajax({
+                type: "post",
+                url: "/user/login",
+                data: {
+                    userName: $("#userName").val(),
+                    password: $("#password").val()
+                },
+                success: function (result) {
+                    console.log(result);
+                    if (result.code == 200 && result.data != "") {
+                        // 将用户token存储在本地
+                        localStorage.setItem("user_token", result.data);
+                        location.href = "blog_list.html";
+                    } else {
+                        $(".msg-error").html(result.errMsg);
+                    }
+                }
+            });
+        });
+    });
 </script>
 </body>
 

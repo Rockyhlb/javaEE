@@ -1,5 +1,6 @@
 package com.hlb.blog.model;
 
+import com.hlb.blog.utils.DateUtils;
 import lombok.Data;
 
 import java.util.Date;
@@ -16,8 +17,16 @@ public class BlogInfo {
     private Integer id;
     private String title;
     private String content;
-    private String userId;
+    private Integer userId;
     private Integer deleteFlag;
     private Date createTime;
     private Date updateTime;
+
+    public String getCreateTime() {
+        return DateUtils.formatDate(this.createTime);
+    }
+
+    public String getUpdateTime() {
+        return DateUtils.formatDate(updateTime);
+    }
 }

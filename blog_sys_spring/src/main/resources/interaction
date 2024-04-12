@@ -1,0 +1,54 @@
+约定前后端交互接口
+1、blog_login.html: 登陆接口
+   type: Post
+   url: /user/login
+   data: userName,password
+   return: Result(验证成功返回token, 否则返回"当前用户还未登陆~~")
+
+2、 blog_login.html：根据用户名获取用户信息
+   type: Get
+   url: /user/queryUserByName
+   data: userName
+   return: UserInfo
+3、blog_list.html: 博客列表页根据当前用户ID查询用户信息
+   type: Get
+   url: /user/queryUserById
+   data: userId
+   return: UserInfo
+
+4、user_register：添加用户
+   type: Post
+   url: /user/query
+   data: UserInfo
+   return: Result
+5、user_update.html：修改用户
+   type: Post
+   url: /user/query
+   data: UserInfo
+   return: Result
+
+6、blog_list.html：获取博客列表
+   type: Get
+   url: /blog/getList
+   data: None
+   return: List<BlogInfo>
+7、blog_detail.html：根据博客Id,获取博客详情
+   type: Get
+   url: /blog/getBlogDetail
+   data: blogId
+   return: BlogInfo
+8、blog_edit.html：添加博客
+   type: Get
+   url: /user/insertBlog
+   data: BlogInfo
+   return: Boolean
+9、blog_update.html：删除博客
+   type: Get
+   url: /blog/updateBlog (采用逻辑删除)
+   data: BlogInfo
+   return: Boolean
+10、blog_update.html：修改博客
+   type: Get
+   url: /blog/updateBlog
+   data: BlogInfo
+   return: Boolean
