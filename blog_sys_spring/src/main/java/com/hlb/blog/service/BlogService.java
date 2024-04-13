@@ -27,4 +27,16 @@ public class BlogService {
     public BlogInfo queryBlogById(Integer blogId) {
         return blogMapper.queryBlogById(blogId);
     }
+
+    public Integer publishBlog(BlogInfo blogInfo) {
+        return blogMapper.insertBlog(blogInfo);
+    }
+
+    public Integer updateBlog(BlogInfo blogInfo) {
+        return blogMapper.updateBlog(blogInfo);
+    }
+
+    public Integer deleteBlog(BlogInfo blogInfo) {
+        return blogMapper.updateBlog(blogInfo);
+    }
 }

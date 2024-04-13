@@ -30,7 +30,7 @@
   </div>
   <!-- markdown 插件 html代码 -->
   <div id="editor">
-    <textarea style="display:none;" id="content">##在这里写下一篇博客</textarea>
+    <textarea style="display:none;" id="content">##在这里写下博客正文</textarea>
   </div>
 </div>
 
@@ -39,43 +39,59 @@
 <script src="js/common.js"></script>
 <script type="text/javascript">
 
-  $(function () {
-    var editor = editormd("editor", {
-      width  : "100%",
-      height : "550px",
-      path: "blog-editormd/lib/"
-    });
-  });
+  // $(function () {
+  //   var editor = editormd("editor", {
+  //     width  : "100%",
+  //     height : "550px",
+  //     path: "blog-editormd/lib/"
+  //   });
+  // });
 
   function submit() {
     $.ajax({
-      type: "post",
-      url: "/blog/update",
-      contentType: "application/json",
-      data: JSON.stringify({
-        "title": $("#title").val(),
-        "content": $("#content").val(),
-        "id": $("#blogId").val()
-      }),
-      success: function (result) {
-        if (result != null && result.code == 200 && result.data == true) {
-          location.href = "blog_list.html";
-        } else {
-          alert(result.msg);
-          return;
-        }
-
+      type:"post",
+      url:"/blog/updateBlog",
+      data:{
+        blogId: $("#blogId").val(),
+        title:$("#title").val(),
+        content:$("#content").val()
       },
-      error: function (error) {
-        if (error != null && error.status == 401) {
-          alert("用户未登录, 登录后再进行对应操作");
+      success:function(result){
+        if(result.code==200 && result.data){
+          alert("更新成功");
+          location.href = "blog_list.html";
+        }
+      },
+      error: function(error) {
+        if(error != null && error.status == 401) {
+          alert("用户未登录, 请登录后再进行后续操作!");
+          location.href = "blog_login.html";
         }
       }
-
     });
   }
-  function getBlogInfo() {
 
+  function getBlogInfo() {
+    $.ajax({
+      type:"get",
+      url:"/blog/getBlogDetail" + location.search,
+      success:function(result){
+        if (result.code == 200 && result.data != null) {
+          $("#blogId").val(result.data.id);
+          $("#title").val(result.data.title);
+          // $("#content").val(result.data.content);
+          editormd("editor", {
+            width  : "100%",
+            height : "550px",
+            path: "blog-editormd/lib/",
+            onload : function() {
+              this.watch()
+              this.setMarkdown(result.data.content);
+            }
+          });
+        }
+      }
+    });
   }
   getBlogInfo();
 </script>

@@ -24,7 +24,7 @@
     <div class="left">
         <div class="card">
             <img src="images/userPage.jpg" alt="">
-            <h3>敲代码的小鱼</h3>
+            <h3></h3>
             <a href="#">GitHub 地址</a>
             <div class="row">
                 <span>文章</span>
@@ -40,10 +40,7 @@
         <!--        <div class="blog">-->
         <!--            <div class="title">我的第一篇博客</div>-->
         <!--            <div class="date">2021-06-02</div>-->
-        <!--            <div class="desc">今天开始, 好好学习Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quas nesciunt,-->
-        <!--                hic voluptatum, dolorem quisquam modi accusantium, commodi dolores architecto ratione vel exercitationem-->
-        <!--                optio. Facere repellendus autem, obcaecati dolore sequi incidunt?-->
-        <!--            </div>-->
+        <!--            <div class="desc">今天开始, 好好学习~~~</div>-->
         <!--            <a class="detail" href="blog_detail.html">查看全文&gt;&gt;</a>-->
         <!--        </div>-->
     </div>
@@ -72,17 +69,25 @@
                         }
                         $(".right").html(finalHtml);
                     } else {
-                        alert("您还没有发布任何博客，快去写博客吧~~");
+                        $(".right").html("目前还没有发布任何博客，快去写博客吧~~");
                     }
                 } else {
                     alert(result.errMsg);
                 }
             },
-            error: function () {
-                console.log("后端返回错误..");
+            error: function (error) {
+                console.log(error);
+                location.href = "blog_login.html";
+                if (error != null && error.status == 401) {
+                    alert("用户未登录, 请登录后再进行后续操作!");
+                    location.href = "blog_login.html";
+                }
             }
         });
     }
+
+    var url = "/user/getUserInfo";
+    getUserInfo(url);
 </script>
 </body>
 </html>

@@ -29,7 +29,7 @@
     </div>
     <!-- markdown 插件 html代码 -->
     <div id="editor">
-        <textarea style="display:none;" id="content" name="content">##在这里写下一篇博客</textarea>
+        <textarea style="display:none;" id="content" name="content">##在这里写下博客正文</textarea>
     </div>
 </div>
 
@@ -47,7 +47,21 @@
     });
 
     function submit() {
-        alert("发表博客");
+        $.ajax({
+            type: "post",
+            url: "/blog/publishBlog",
+            data:{
+                title: $("#title").val(),
+                content: $("#content").val()
+            },
+            success: function(result) {
+                if(result.code == 200 && result.data == true) {
+                    location.href = "blog_list.html";
+                }else {
+                    alert("博客发布失败,请检查标题和正文~");
+                }
+            }
+        });
     }
 </script>
 </body>

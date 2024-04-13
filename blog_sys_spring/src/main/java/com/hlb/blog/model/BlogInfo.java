@@ -22,6 +22,21 @@ public class BlogInfo {
     private Date createTime;
     private Date updateTime;
 
+    public BlogInfo() {
+    }
+
+    public BlogInfo(String title, String content, Integer userId) {
+        this.title = title;
+        this.content = content;
+        this.userId = userId;
+    }
+
+    public BlogInfo(Integer id, String title, String content) {
+        this.id = id;
+        this.title = title;
+        this.content = content;
+    }
+
     public String getCreateTime() {
         return DateUtils.formatDate(this.createTime);
     }

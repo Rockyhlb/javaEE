@@ -1,0 +1,66 @@
+前后端交互接口：
+1、blog_login.html: 登陆接口
+   type: Post
+   url: /user/login
+   data: userName,password
+   return: Result(验证成功返回token)
+
+3、blog_list.html: 博客列表页展示登陆用户信息，根据当前用户ID查询用户信息
+   type: Get
+   url: /user/getUserInfo
+   data: None (将本地存储的token一起放入到header传输)
+   return: UserInfo
+
+3、 blog_detail.html：博客详情页展示博主信息，根据用户ID获取用户信息
+   type: Get
+   url: /user/getAuthorInfo?blogId=1
+   data: None
+   return: UserInfo
+
+4、user_register：添加用户
+   type: Post
+   url: /user/register
+   data: userName,password,github,inputCaptcha
+   return: Result
+
+5、user_update.html：修改用户
+   type: Post
+   url: /user/updateUser
+   data: userName,password,github,inputCaptcha
+   return: Result
+
+6、blog_list.html：获取博客列表
+   type: Get
+   url: /blog/getList
+   data: None
+   return: List<BlogInfo>
+
+7、blog_detail.html：根据博客Id,获取博客详情
+   type: Get
+   url: /blog/getBlogDetail
+   data: blogId
+   return: BlogInfo
+
+8、blog_edit.html：添加博客
+   type: Post
+   url: /user/publishBlog
+   data: title,content
+   return: Boolean
+
+9、blog_detail.html: 判断博客作者和当前登陆用户是否是同一用户
+   type: Get
+   url: /blog/judgeSameUser?blogId=1
+   data: None  (取出token中的用户id和blogId查询出的userId进行比较)
+   return: Boolean
+
+10、blog_update.html：修改博客
+   type: Post
+   url: /blog/updateBlog?blogId=2
+   data: title,content
+   return: Boolean
+
+11、blog_update.html：删除博客
+   type: Post
+   url: /blog/deleteBlog?blogId=3 (采用逻辑删除)
+   data: None
+   return: Boolean

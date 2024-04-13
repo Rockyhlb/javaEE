@@ -92,3 +92,12 @@ a:hover {
     border: 1px solid #ccc;
     border-radius: 3px;
 }
+
+.msg-error {
+    position: relative;
+    font-size: x-small;
+    line-height: inherit;
+    color: rgba(250, 44, 25, 1);
+    margin-top: -10px;
+    margin-left: -120px;
+}

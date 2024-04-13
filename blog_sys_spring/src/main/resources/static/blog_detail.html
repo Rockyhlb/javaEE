@@ -26,7 +26,7 @@
     <div class="left">
         <div class="card">
             <img src="images/userPage.jpg" alt="">
-            <h3>敲代码的小鱼</h3>
+            <h3></h3>
             <a href="#">GitHub 地址</a>
             <div class="row">
                 <span>文章</span>
@@ -42,11 +42,11 @@
         <div class="content">
             <div class="title"></div>
             <div class="date"></div>
-            <div class="detail"></div>
-            <div class="operating">
+            <div class="detail" id="detail" style="background-color: transparent;"></div>
+            <!-- <div class="operating">
                 <button onclick="window.location.href='blog_update.html'">编辑</button>
                 <button onclick="deleteBlog()">删除</button>
-            </div>
+            </div> -->
         </div>
 
     </div>
@@ -71,22 +71,71 @@
                     var blog = result.data;
                     $(".right .content .title").text(blog.title);
                     $(".right .content .date").text(blog.createTime);
-                    $(".right .content .detail").text(blog.content);
+                    // $(".right .content .detail").text(blog.content);
+                    editormd.markdownToHTML("detail", {
+                        markdown: blog.content,
+                    });
                 } else {
                     $(".right .content .title").text("博客不存在~~");
                 }
             } else {
                 alert(result.errMsg);
             }
+        },
+        error: function (error) {
+            console.log(error);
+            if (error != null && error.status == 401) {
+                alert("用户未登录, 请登录后再进行后续操作!");
+                location.href = "blog_login.html";
+            }
         }
     });
 
-    //显示博客作者信息
+    // 显示博主信息
     var userUrl = "/user/getAuthorInfo" + location.search;
     getUserInfo(userUrl);
 
+    // 是否显示编辑/删除按钮 (读者没有权限编辑 或 删除博主的博客)
+    $.ajax({
+        type: "get",
+        url: "/user/judgeSameUser" + location.search,
+        success: function(result) {
+            if(result.code == 200 && result.data == true) {
+                console.log("显示编辑/删除?:" + result.data);
+                var html = "";
+                html += '<div class="operating">';
+                html += '<button onclick="window.location.href=\'blog_update.html'+location.search+'\'">编辑</button>';  
+                html += '<button onclick="deleteBlog()">删除</button>';
+                html += '</div>';
+                $(".content").append(html);
+            }else {
+                console.log(result);
+            }
+        }
+    });
+
     function deleteBlog() {
-        alert("删除博客");
+        // 提示用户确认删除，并执行删除操作
+        var confirmDelete = confirm("您正在进行删除操作，确定删除？");
+        if (confirmDelete) {
+            $.ajax({
+                type: "post",
+                url: "blog/deleteBlog" + location.search,
+                success: function(result) {
+                    if (result.code == 200 && result.data == true) {
+                        alert("删除成功，即将跳转至博客主页");
+                        location.href = "blog_list.html";
+                    } else {
+                        alert("删除失败~~");
+                    }
+                },
+                error: function(error) {
+                    console.log(error);
+                    // 处理错误情况
+                    alert("删除失败，请稍后再试~~");
+                }
+            });
+        }
     }
 </script>
 </body>

@@ -21,6 +21,9 @@
                 <input type="text" placeholder="Verification Code" name="inputCaptcha" id="inputCaptcha">
                 <img id="verificationCodeImg" src="/admin/captcha" title="看不清？换一张">
             </div>
+
+            <div class="msg-error"></div>
+
             <script src="js/jquery.min.js"></script>
             <button type="submit">Update user for book_sys</button>
         </form>
@@ -39,29 +42,25 @@
     $(document).ready(function () {
         $("#updateForm").on("submit", function (event) {
             event.preventDefault(); // 阻止表单默认提交行为
-            var userName = $("#userName").val();
-            var password = $("#password").val();
-            var email = $("#email").val();
-            var inputCaptcha = $("#inputCaptcha").val();
             // 进行表单验证
             $.ajax({
                 type: "post",
                 url: "/user/updateUser",
                 data: {
-                    userName: userName,
-                    password: password,
-                    email: email,
-                    inputCaptcha: inputCaptcha
+                    userName: $("#userName").val(),
+                    password: $("#password").val(),
+                    githubUrl: $("#github").val(),
+                    inputCaptcha: $("#inputCaptcha").val()
                 },
                 success: function (result) {
                     console.log(result);
                     // 业务状态码200表示成功
-                    if (200 == result.code) {
+                    if (200 == result.code && result.data != null) {
                         alert("账户修改成功..");
-                        window.location.href = "login.html";
+                        window.location.href = "blog_login.html";
                     } else {
                         // 更新失败
-                        alert(result.errmsg);
+                        $(".msg-error").html(result.errMsg);
                         $("#inputCaptcha").val("");
                     }
                 }
