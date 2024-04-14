@@ -35,8 +35,6 @@ CREATE TABLE blog
 -- 新增用户信息
 insert into user (`user_name`, `password`, `github_url`)
 values ('rocky', '000000', 'https://github.com/Rockyhlb');
-insert into user (`user_name`, `password`, `github_url`)
-values ('user1', '999999', 'https://github.com');
 -- 新增博客信息
 insert into blog (`title`, `content`, `user_id`)
 values ('这是标题1', '这是正文1', 1);

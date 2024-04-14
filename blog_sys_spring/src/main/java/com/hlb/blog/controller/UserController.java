@@ -2,13 +2,11 @@ package com.hlb.blog.controller;
 
 import com.hlb.blog.constants.Constant;
 import com.hlb.blog.enums.CaptchaStatusEnum;
-import com.hlb.blog.model.BlogInfo;
 import com.hlb.blog.model.Result;
 import com.hlb.blog.model.UserInfo;
 import com.hlb.blog.service.UserService;
 import com.hlb.blog.utils.JWTUtils;
-import com.sun.org.apache.xpath.internal.operations.Bool;
-import io.jsonwebtoken.Jwts;
+import com.hlb.blog.utils.SecurityUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
@@ -20,8 +18,6 @@ import javax.servlet.http.HttpSession;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
-
 
 /**
  * @BelongsProject: blog_sys_spring
@@ -51,10 +47,12 @@ public class UserController {
             log.error("用户不存在");
             return Result.fail("用户不存在，快去注册吧~");
         }
-        if (!password.equals(userInfo.getPassword())) {
+        // 验证密码
+        if (!SecurityUtils.verify(userInfo.getPassword(),password)) {
             log.error("账号名与密码不匹配");
             return Result.fail("账号名与密码不匹配，请重新输入~");
         }
+
         // 3、验证通过，生成token
         Map<String, Object> claim = new HashMap<>();
         claim.put(Constant.USER_CLAIM_ID, userInfo.getId());
@@ -62,6 +60,18 @@ public class UserController {
         String token = JWTUtils.genToken(claim);
         log.info("生成token,token:{}", token);
         return Result.success(token);
+    }
+
+    @RequestMapping("/register")
+    public Result<Object> register(UserInfo userInfo, String inputCaptcha, HttpSession session) {
+        log.info("注册用户：userInfo:{}, inputCaptcha:{}", userInfo, inputCaptcha);
+        // 对验证码进行校验
+        Result<Object> checkInputStatus = checkInput(userInfo,inputCaptcha, session);
+        if (checkInputStatus.getCode() != 200) {
+            return checkInputStatus;
+        }
+        // 最后调用service层代码
+        return userService.register(userInfo);
     }
 
     private Result<Object> checkInput(UserInfo userInfo,String inputCaptcha, HttpSession session) {
@@ -80,7 +90,7 @@ public class UserController {
         Date oldDate = (Date) session.getAttribute(Constant.CAPTCHA_SESSION_DATE);
         // 3、比对验证码(忽略大小写)
         if (inputCaptcha.equalsIgnoreCase(rightCaptcha)) {
-            // 4、确认是否过期
+            // 4、确认验证码是否过期
             if (oldDate != null && (System.currentTimeMillis() - oldDate.getTime()) < Constant.TIME_OUT) {
                 return Result.success(CaptchaStatusEnum.SUCCESS.getCode());
             }
@@ -89,25 +99,13 @@ public class UserController {
         return Result.fail(CaptchaStatusEnum.FAILED.getMsg());
     }
 
-    @RequestMapping("/register")
-    public Result<Object> register(UserInfo userInfo, String inputCaptcha, HttpSession session) {
-        log.info("注册用户：userInfo:{}, inputCaptcha:{}", userInfo, inputCaptcha);
-        // 对验证码进行校验
-        Result<Object> captchaStatusEnum = checkInput(userInfo,inputCaptcha, session);
-        if (captchaStatusEnum.getCode() != 200) {
-            return captchaStatusEnum;
-        }
-        // 最后调用service层代码
-        return userService.register(userInfo);
-    }
-
     @RequestMapping("/updateUser")
     public Result<Object> updateUser(UserInfo userInfo, String inputCaptcha, HttpSession session) {
         log.info("注册用户：userInfo:{}, inputCaptcha:{}", userInfo, inputCaptcha);
         // 对验证码进行校验
-        Result<Object> captchaStatusEnum = checkInput(userInfo,inputCaptcha, session);
-        if (captchaStatusEnum.getCode() != 200) {
-            return captchaStatusEnum;
+        Result<Object> checkInputStatus = checkInput(userInfo,inputCaptcha, session);
+        if (checkInputStatus.getCode() != 200) {
+            return checkInputStatus;
         }
         // 3、最后调用service层代码
         return userService.updateUser(userInfo);

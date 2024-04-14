@@ -5,6 +5,7 @@ import com.hlb.blog.mapper.UserMapper;
 import com.hlb.blog.model.BlogInfo;
 import com.hlb.blog.model.Result;
 import com.hlb.blog.model.UserInfo;
+import com.hlb.blog.utils.SecurityUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -51,6 +52,8 @@ public class UserService {
 
     public Result<Object> register(UserInfo userInfo) {
         try {
+            // 对密码进行加密
+            userInfo.setPassword(SecurityUtils.encrypt(userInfo.getPassword()));
             if (userMapper.register(userInfo) > 0) {
                 userInfo.setPassword("");
                 return Result.success(userInfo);
@@ -70,6 +73,8 @@ public class UserService {
             }
             // 根据用户名进行信息修改
             userInfo.setUpdateTime(new Date());
+            // 加密密码
+            userInfo.setPassword(SecurityUtils.encrypt(userInfo.getPassword()));
             if (userMapper.updateUser(userInfo) > 0) {
                 userInfo.setPassword("");
                 return Result.success(userInfo);

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -91,6 +92,8 @@ public class BlogController {
         }
         // 2、封装对象
         BlogInfo blogInfo = new BlogInfo(blogId,title,content);
+        blogInfo.setUpdateTime(new Date());
+
         Integer res = blogService.updateBlog(blogInfo);
         if (res <= 0) {
             log.error("更新失败");
@@ -108,6 +111,7 @@ public class BlogController {
         }
         BlogInfo blogInfo = new BlogInfo();
         blogInfo.setId(blogId);
+        blogInfo.setUpdateTime(new Date());
         blogInfo.setDeleteFlag(1);
         Integer res = blogService.deleteBlog(blogInfo);
         if (res <= 0) {
