@@ -48,7 +48,7 @@ public class UserController {
             return Result.fail("用户不存在，快去注册吧~");
         }
         // 验证密码
-        if (!SecurityUtils.verify(userInfo.getPassword(),password)) {
+        if (!SecurityUtils.verify(userInfo.getPassword(), password)) {
             log.error("账号名与密码不匹配");
             return Result.fail("账号名与密码不匹配，请重新输入~");
         }
@@ -66,7 +66,7 @@ public class UserController {
     public Result<Object> register(UserInfo userInfo, String inputCaptcha, HttpSession session) {
         log.info("注册用户：userInfo:{}, inputCaptcha:{}", userInfo, inputCaptcha);
         // 对验证码进行校验
-        Result<Object> checkInputStatus = checkInput(userInfo,inputCaptcha, session);
+        Result<Object> checkInputStatus = checkInput(userInfo, inputCaptcha, session);
         if (checkInputStatus.getCode() != 200) {
             return checkInputStatus;
         }
@@ -74,12 +74,10 @@ public class UserController {
         return userService.register(userInfo);
     }
 
-    private Result<Object> checkInput(UserInfo userInfo,String inputCaptcha, HttpSession session) {
+    private Result<Object> checkInput(UserInfo userInfo, String inputCaptcha, HttpSession session) {
         log.info("验证码校验，inputCaptcha:{}", inputCaptcha);
         // 1、校验输入
-        if (userInfo.getUserName() == null ||
-                userInfo.getPassword() == null ||
-                userInfo.getGithubUrl() == null ) {
+        if (userInfo.getUserName() == null || userInfo.getPassword() == null || userInfo.getGithubUrl() == null) {
             return Result.fail("请完成必要信息的填写...");
         }
         if (!StringUtils.hasLength(inputCaptcha)) {
@@ -103,7 +101,7 @@ public class UserController {
     public Result<Object> updateUser(UserInfo userInfo, String inputCaptcha, HttpSession session) {
         log.info("注册用户：userInfo:{}, inputCaptcha:{}", userInfo, inputCaptcha);
         // 对验证码进行校验
-        Result<Object> checkInputStatus = checkInput(userInfo,inputCaptcha, session);
+        Result<Object> checkInputStatus = checkInput(userInfo, inputCaptcha, session);
         if (checkInputStatus.getCode() != 200) {
             return checkInputStatus;
         }

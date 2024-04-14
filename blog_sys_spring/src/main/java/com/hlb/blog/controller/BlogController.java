@@ -51,9 +51,9 @@ public class BlogController {
     @RequestMapping("publishBlog")
     public Boolean publishBlog(String title, String content, HttpServletRequest request) {
         if (content.length() > 50) {
-            log.info("publishBlog,title:{},content:{}",title,content.substring(0,10));
-        }else {
-            log.info("publishBlog,title:{},content:{}",title,content);
+            log.info("publishBlog,title:{},content:{}", title, content.substring(0, 10));
+        } else {
+            log.info("publishBlog,title:{},content:{}", title, content);
         }
 
         // 1、参数校验
@@ -69,7 +69,7 @@ public class BlogController {
             return false;
         }
         // 3、发布博客
-        BlogInfo blogInfo = new BlogInfo(title,content,userId);
+        BlogInfo blogInfo = new BlogInfo(title, content, userId);
         Integer res = blogService.publishBlog(blogInfo);
         if (res <= 0) {
             log.error("博客发布失败！");
@@ -79,11 +79,11 @@ public class BlogController {
     }
 
     @RequestMapping("updateBlog")
-    public Boolean updateBlog(Integer blogId,String title,String content) {
+    public Boolean updateBlog(Integer blogId, String title, String content) {
         if (content.length() > 50) {
-            log.info("updateBlog,blogId:{},title:{},content:{}",blogId,title,content.substring(0,20));
-        }else {
-            log.info("updateBlog,blogId:{},title:{},content:{}",blogId,title,content);
+            log.info("updateBlog,blogId:{},title:{},content:{}", blogId, title, content.substring(0, 20));
+        } else {
+            log.info("updateBlog,blogId:{},title:{},content:{}", blogId, title, content);
         }
         // 1、校验参数
         if (blogId == null || !StringUtils.hasLength(title.trim()) || !StringUtils.hasLength(content)) {
@@ -91,7 +91,7 @@ public class BlogController {
             return false;
         }
         // 2、封装对象
-        BlogInfo blogInfo = new BlogInfo(blogId,title,content);
+        BlogInfo blogInfo = new BlogInfo(blogId, title, content);
         blogInfo.setUpdateTime(new Date());
 
         Integer res = blogService.updateBlog(blogInfo);
