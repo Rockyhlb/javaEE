@@ -1,5 +1,5 @@
 -- 创建数据库
-# create database if not exists blog_sys_spring charset utf8mb4;
+create database if not exists blog_sys_spring charset utf8mb4;
 
 -- 用户表
 DROP TABLE IF EXISTS user;
