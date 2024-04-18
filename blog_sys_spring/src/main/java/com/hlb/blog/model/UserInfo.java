@@ -20,4 +20,5 @@ public class UserInfo {
     private Integer deleteFlag;
     private Date createTime;
     private Date updateTime;
+    private Integer sumArticles;
 }

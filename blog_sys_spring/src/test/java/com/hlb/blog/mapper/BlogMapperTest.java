@@ -21,7 +21,7 @@ class BlogMapperTest {
 
     @AfterEach
     void tearDown() {
-        log.info("开始测试......");
+        log.info("结束测试......");
     }
 
     @Test
@@ -60,5 +60,8 @@ class BlogMapperTest {
         log.info(blogMapper.updateBlog(blogInfo).toString());
     }
 
-
+    @Test
+    void selectSumArticles() {
+        log.info(blogMapper.selectSumArticles(2).toString());
+    }
 }

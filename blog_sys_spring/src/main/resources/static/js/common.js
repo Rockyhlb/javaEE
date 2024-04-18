@@ -17,6 +17,8 @@ function getUserInfo(userUrl) {
             if (result.code == 200 && result.data != null) {
                 $(".left .card h3").text(result.data.userName);
                 $(".left .card a").attr("href", result.data.githubUrl);
+                $(".left .card .row .article").text(result.data.sumArticles);
+                $(".left .card .row .category").text(result.data.sumArticles);
             }
         }
     });

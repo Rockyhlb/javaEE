@@ -39,4 +39,8 @@ public class BlogService {
     public Integer deleteBlog(BlogInfo blogInfo) {
         return blogMapper.updateBlog(blogInfo);
     }
+
+    public Integer selectSumArticles(Integer userId) {
+        return blogMapper.selectSumArticles(userId);
+    }
 }

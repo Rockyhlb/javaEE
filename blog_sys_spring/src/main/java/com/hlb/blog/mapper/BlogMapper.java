@@ -32,4 +32,7 @@ public interface BlogMapper {
     // 逻辑删除：通过update将delete_flag=1
     // 根据xml编写动态sql
     Integer updateBlog(BlogInfo blogInfo);
+
+    @Select("select count(1) from blog where user_id = #{userId} AND delete_flag <> 1;")
+    Integer selectSumArticles(Integer userId);
 }

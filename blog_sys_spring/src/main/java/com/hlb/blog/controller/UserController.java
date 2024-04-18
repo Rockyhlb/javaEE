@@ -4,6 +4,7 @@ import com.hlb.blog.constants.Constant;
 import com.hlb.blog.enums.CaptchaStatusEnum;
 import com.hlb.blog.model.Result;
 import com.hlb.blog.model.UserInfo;
+import com.hlb.blog.service.BlogService;
 import com.hlb.blog.service.UserService;
 import com.hlb.blog.utils.JWTUtils;
 import com.hlb.blog.utils.SecurityUtils;
@@ -32,6 +33,8 @@ import java.util.Map;
 public class UserController {
     @Autowired
     private UserService userService;
+    @Autowired
+    private BlogService blogService;
 
     @RequestMapping("/login")
     public Result login(String userName, String password) {
@@ -123,6 +126,8 @@ public class UserController {
         // 3、进入service
         UserInfo userInfo = userService.queryUserByID(userId);
         userInfo.setPassword("");
+        Integer sumBlog = blogService.selectSumArticles(userId);
+        userInfo.setSumArticles(sumBlog);
         log.info("user:{}", userInfo.getUserName());
         return userInfo;
     }
@@ -139,6 +144,8 @@ public class UserController {
             return null;
         }
         authorInfo.setPassword("");
+        Integer sumBlog = blogService.selectSumArticles(authorInfo.getId());
+        authorInfo.setSumArticles(sumBlog);
         log.info("user:{}", authorInfo.getUserName());
         return authorInfo;
     }

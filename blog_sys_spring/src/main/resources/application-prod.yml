@@ -13,7 +13,7 @@ mybatis:
 # 设置日志路径
 logging:
   file:
-    name: spring-blog.log
+    name: logs/spring-blog.log
 
 # 通过配置文件生成验证码
 kaptcha:
