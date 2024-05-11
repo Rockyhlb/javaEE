@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MD5加密解密示例</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="encrypt.css">
+</head>
+<body>
+<h1>MD5加密解密示例</h1>
+
+<div id="box">
+    <label for="inputText">输入要加密的文本：</label><br>
+    <textarea id="inputText" rows="4" cols="50"></textarea><br><br>
+
+    <button onclick="encrypt()">加密</button>
+    <button onclick="decrypt()">解密</button>
+    <br><br>
+
+    <label for="outputText">加密/解密后的文本：</label><br>
+    <textarea id="outputText" rows="4" cols="50" readonly></textarea>
+</div>
+
+<div class="ToolAbout wrapper03 xian mt10">
+    <div class="clearfix">
+        <h4 class="HeadH4 YaHei fz16 col-blue02 fwnone fl">工具简介</h4>
+        <div id="toolsIntro" class="fr fz14"></div>
+    </div>
+    <div class="col-gray01 ToolAbCont">
+        <p>md5加密理论上是一种不可逆的加密算法。</p>
+    </div>
+</div>
+
+<script type="text/javascript">
+    // 加密逻辑
+    function encrypt() {
+        $.ajax({
+            type: "get",
+            url: "/encrypt",
+            data: {
+                inputText: $("#inputText").val(),
+            },
+            success: function (result) {
+                console.log(result);
+                if (result != null) {
+                    $("#outputText").val(result);
+                } else {
+                    alert("加密失败, 请检查输入是否合法!");
+                }
+            }
+        });
+    }
+
+    // 解密逻辑，MD5不可逆，因此无法进行解密操作, 此处通过 Map 模拟 "解密"操作
+    function decrypt() {
+        $.ajax({
+            type: "get",
+            url: "/decrypt",
+            data: {
+                inputText: $("#inputText").val(),
+            },
+            success: function (result) {
+                console.log(result);
+                if (result != null) {
+                    $("#outputText").val(result);
+                } else {
+                    alert("加密失败, 请检查输入是否合法!");
+                }
+            }
+        });
+    }
+</script>
+</body>
+</html>
